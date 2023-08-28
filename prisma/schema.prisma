@@ -11,13 +11,12 @@ datasource db {
 }
 
 model User {
-  id             String    @id @default(cuid())
-  staffId        String    @unique
-  email          String    @unique
-  name           String
-  hashedPassword String
-  role           String
-  emailVerified  DateTime?
-  createdAt      DateTime  @default(now())
-  updatedAt      DateTime?  @updatedAt
+  id        String   @id @default(cuid())
+  staffId   String   @unique
+  email     String   @unique
+  name      String
+  password  String
+  role      String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
