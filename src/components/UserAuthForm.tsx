@@ -5,14 +5,13 @@ import React, { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { LuLoader2 } from "react-icons/lu";
-import { Button, Input } from "antd";
-import { signIn, useSession } from "next-auth/react";
+import { Input } from "antd";
+import { signIn } from "next-auth/react";
 import { toast } from "@/hooks/use-toast";
-import { useRouter } from "next/navigation";
+import { buttonVariants } from "./ui/Button";
+import { cn } from "@/lib/utils";
 
 const UserAuthForm = () => {
-  const router = useRouter();
-
   const {
     control,
     handleSubmit,
@@ -41,62 +40,58 @@ const UserAuthForm = () => {
       });
     }
 
-    const { data: session } = await useSession();
-
-    // Check if the user is authenticated and has a role
-    if (session && session.user && session.user.role) {
-      switch (session.user.role) {
-        case "Admin":
-          router.push("/admin");
-          break;
-        case "Incharge":
-          router.push("/incharge");
-          break;
-        case "Police":
-          router.push("/police");
-          break;
-        case "Detective":
-          router.push("/detective");
-          break;
-        default:
-          // Handle other roles or scenarios
-          break;
-      }
-    }
-
     return toast({
       title: "Successfully logged in",
     });
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
+    <form className="grid gap-6" onSubmit={handleSubmit(onSubmit)}>
       <Controller
         name="email"
         control={control}
         defaultValue=""
-        rules={{ required: true }}
-        render={({ field }) => (
-          <Input size="large" {...field} placeholder="Email Address" />
+        rules={{ required: "Please enter your email" }}
+        render={({ field, fieldState }) => (
+          <div>
+            <Input
+              size="large"
+              {...field}
+              placeholder="Email Address"
+              className={fieldState.invalid ? "ant-input-error" : ""}
+            />
+            {fieldState.invalid && (
+              <span className="ant-form-item-explain">
+                {fieldState?.error?.message}
+              </span>
+            )}
+          </div>
         )}
       />
       <Controller
         name="password"
         control={control}
         defaultValue=""
-        rules={{ required: true }}
+        rules={{ required: "Please enter your password" }}
         render={({ field }) => (
-          <Input.Password
-            size="large"
-            {...field}
-            placeholder="*****************"
-          />
+          <div>
+            <Input.Password
+              size="large"
+              {...field}
+              placeholder="*****************"
+            />
+          </div>
         )}
       />
-      <Button disabled={isLoading} htmlType="submit">
+
+      <button
+        className={cn(buttonVariants())}
+        disabled={isLoading}
+        type="submit"
+      >
         {isLoading && <LuLoader2 className="mr-2 h-4 w-4 animate-spin" />}
         Login
-      </Button>
+      </button>
     </form>
   );
 };
