@@ -4,8 +4,8 @@ import Link from "next/link";
 import { docsConfig } from "@/config/docs";
 import { siteConfig } from "@/config/site";
 import { MainNav } from "@/components/MainNav";
-import { DocsSearch } from "@/components/DocsSearch";
-import { DocsSidebarNav } from "@/components/DocsSidebarNav";
+import { DocsSearch } from "@/components/docs/DocsSearch";
+import { DocsSidebarNav } from "@/components/docs/DocsSidebarNav";
 import SiteFooter from "@/components/SiteFooter";
 import { FaGithub } from "react-icons/fa";
 

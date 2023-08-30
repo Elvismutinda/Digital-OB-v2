@@ -1,4 +1,4 @@
-import { DocsSidebarNav } from "@/components/DocsSidebarNav";
+import { DocsSidebarNav } from "@/components/docs/DocsSidebarNav";
 import { docsConfig } from "@/config/docs";
 
 export default function DocsLayout({
