@@ -4,17 +4,17 @@ export const registerUserSchema = z.object({
   staffId: z
     .string({ required_error: "Staff ID is required" })
     .min(1, "Staff ID is required"),
-    email: z
-      .string({ required_error: "Email is required" })
-      .min(1, "Email is required")
-      .email("Invalid email address"),
+  email: z
+    .string({ required_error: "Email is required" })
+    .min(1, "Email is required")
+    .email("Invalid email address"),
   name: z
     .string({ required_error: "Name is required" })
     .min(1, "Full name is required"),
-    password: z
-      .string({ required_error: "Password is required" })
-      .min(1, "Password is required")
-      .min(8, "Password must be at least 8 characters"),
+  password: z
+    .string({ required_error: "Password is required" })
+    .min(1, "Password is required")
+    .min(8, "Password must be at least 8 characters"),
   role: z.string({ required_error: "Role is required" }),
 });
 
@@ -25,6 +25,7 @@ export const loginUserSchema = z.object({
     .email("Invalid email address"),
   password: z
     .string({ required_error: "Password is required" })
+    .min(1, "Password is required"),
 });
 
 export const updateUserSchema = z
