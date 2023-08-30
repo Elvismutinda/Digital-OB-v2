@@ -59,14 +59,13 @@ const UserAuthForm = () => {
           control={control}
           defaultValue=""
           rules={{ required: true }}
-          render={({ field, fieldState }) => (
+          render={({ field }) => (
             <div>
               <Input
                 autoComplete="off"
                 size="large"
                 {...field}
                 placeholder="Email Address"
-                className={fieldState.invalid ? "ant-input-error" : ""}
               />
               {errors.email && (
                 <p className="px-1 text-sm text-red-600">
