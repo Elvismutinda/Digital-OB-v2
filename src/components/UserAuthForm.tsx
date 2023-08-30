@@ -7,7 +7,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { LuLoader2 } from "react-icons/lu";
 import { Input } from "antd";
 import { signIn } from "next-auth/react";
-import { toast } from "@/hooks/use-toast";
+import { useToast } from "@/hooks/use-toast";
 import { buttonVariants } from "./ui/Button";
 import { cn } from "@/lib/utils";
 
@@ -21,14 +21,17 @@ const UserAuthForm = () => {
   });
 
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const { toast } = useToast();
 
-  const onSubmit = async (data: loginUserForm) => {
+  async function onSubmit(data: loginUserForm) {
     setIsLoading(true);
 
     const signInResult = await signIn("credentials", {
       email: data.email.toLowerCase(),
       password: data.password,
     });
+
+    console.log("Result: ", signInResult);
 
     setIsLoading(false);
 
