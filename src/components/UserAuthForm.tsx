@@ -29,6 +29,8 @@ const UserAuthForm = () => {
     const signInResult = await signIn("credentials", {
       email: data.email.toLowerCase(),
       password: data.password,
+      redirect: false,
+      callbackUrl: "/admin" || "/incharge" || "police" || "detective",
     });
 
     console.log("Result: ", signInResult);
@@ -44,58 +46,68 @@ const UserAuthForm = () => {
     }
 
     return toast({
-      title: "Successfully logged in",
+      title: "Success",
+      description: "You have successfully logged in.",
     });
-  };
+  }
 
   return (
-    <form className="grid gap-6" onSubmit={handleSubmit(onSubmit)}>
-      <Controller
-        name="email"
-        control={control}
-        defaultValue=""
-        rules={{ required: "Please enter your email" }}
-        render={({ field, fieldState }) => (
-          <div>
-            <Input
-              size="large"
-              {...field}
-              placeholder="Email Address"
-              className={fieldState.invalid ? "ant-input-error" : ""}
-            />
-            {fieldState.invalid && (
-              <span className="ant-form-item-explain">
-                {fieldState?.error?.message}
-              </span>
-            )}
-          </div>
-        )}
-      />
-      <Controller
-        name="password"
-        control={control}
-        defaultValue=""
-        rules={{ required: "Please enter your password" }}
-        render={({ field }) => (
-          <div>
-            <Input.Password
-              size="large"
-              {...field}
-              placeholder="*****************"
-            />
-          </div>
-        )}
-      />
+    <div>
+      <form className="grid gap-6" onSubmit={handleSubmit(onSubmit)}>
+        <Controller
+          name="email"
+          control={control}
+          defaultValue=""
+          rules={{ required: true }}
+          render={({ field, fieldState }) => (
+            <div>
+              <Input
+                autoComplete="off"
+                size="large"
+                {...field}
+                placeholder="Email Address"
+                className={fieldState.invalid ? "ant-input-error" : ""}
+              />
+              {errors.email && (
+                <p className="px-1 text-sm text-red-600">
+                  {errors.email.message}
+                </p>
+              )}
+            </div>
+          )}
+        />
+        <Controller
+          name="password"
+          control={control}
+          defaultValue=""
+          rules={{ required: true }}
+          render={({ field }) => (
+            <div>
+              <Input.Password
+                autoComplete="off"
+                size="large"
+                {...field}
+                placeholder="*****************"
+              />
+              {errors.password && (
+                <p className="px-1 text-sm text-red-600">
+                  {errors.password.message}
+                </p>
+              )}
+            </div>
+          )}
+        />
 
-      <button
-        className={cn(buttonVariants())}
-        disabled={isLoading}
-        type="submit"
-      >
-        {isLoading && <LuLoader2 className="mr-2 h-4 w-4 animate-spin" />}
-        Login
-      </button>
-    </form>
+        <button
+          className={cn(buttonVariants())}
+          disabled={isLoading}
+          type="submit"
+        >
+          {isLoading && <LuLoader2 className="mr-2 h-4 w-4 animate-spin" />}
+          Login
+        </button>
+      </form>
+    </div>
   );
 };
 
