@@ -14,5 +14,9 @@ export const detailsConfig: DetailsConfig = {
       title: "Features",
       href: "/#features",
     },
+    {
+      title: "Documentation",
+      href: "/docs",
+    },
   ],
 };
