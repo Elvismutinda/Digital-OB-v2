@@ -100,7 +100,6 @@ const UserAuthForm = () => {
         <button
           className={cn(buttonVariants())}
           disabled={isLoading}
-          type="submit"
         >
           {isLoading && <LuLoader2 className="mr-2 h-4 w-4 animate-spin" />}
           Login
