@@ -8,6 +8,26 @@ export type SiteConfig = {
   };
 };
 
+export type SidebarNavItem = {
+  title: string;
+  disabled?: boolean;
+  external?: boolean;
+} & (
+  | {
+    href: string;
+    items?: never;
+  }
+  | {
+    href?: string;
+    items: NavLink[];
+  }
+)
+
+export type DocsConfig = {
+  mainNav: MainNavItem[];
+  sidebarNav: SidebarNavItem[];
+}
+
 export type NavItem = {
   title: string;
   href: string;
