@@ -41,8 +41,10 @@ export default function RootLayout({
           fontHeading.variable
         )}
       >
+        <Providers>
           {authModal}
           {children}
+        </Providers>
         <Toaster />
       </body>
     </html>
