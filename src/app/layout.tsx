@@ -1,36 +1,48 @@
+import { Inter as FontSans } from "next/font/google";
+import localFont from "next/font/local";
+import "@/styles/globals.css";
+
 import { cn } from "@/lib/utils";
-import "./globals.css";
-import type { Metadata } from "next";
-import { Inter } from "next/font/google";
 import Providers from "@/components/Providers";
 import { Toaster } from "@/components/ui/Toaster";
+import { siteConfig } from "@/config/site";
 
-const inter = Inter({ subsets: ["latin"] });
+const fontSans = FontSans({
+  subsets: ["latin"],
+  variable: "--font-sans",
+});
 
-export const metadata: Metadata = {
-  title: "Digital O.B V2",
-  description: "Version 2 of my Digital O.B website",
+const fontHeading = localFont({
+  src: "../assets/fonts/CalSans-SemiBold.woff2",
+  variable: "--font-heading",
+});
+
+export const metadata = {
+  title: {
+    default: siteConfig.name,
+    template: `%s | ${siteConfig.name}`,
+  },
+  description: siteConfig.description,
 };
 
 export default function RootLayout({
   children,
+  authModal,
 }: {
   children: React.ReactNode;
+  authModal: React.ReactNode;
 }) {
   return (
-    <html
-      lang="en"
-      className={cn(
-        "bg-white text-slate-900 antialiased light",
-        inter.className
-      )}
-    >
-      <body className="min-h-screen pt-12 bg-slate-50 antialiased">
-        <Providers>
-          <div className="container max-w-7xl mx-auto h-full pt-12">
-            {children}
-          </div>
-        </Providers>
+    <html lang="en" suppressHydrationWarning>
+      <body
+        className={cn(
+          "min-h-screen bg-background font-sans antialiased",
+          fontSans.variable,
+          fontHeading.variable
+        )}
+      >
+          {authModal}
+          {children}
         <Toaster />
       </body>
     </html>
