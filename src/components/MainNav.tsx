@@ -23,7 +23,13 @@ export function MainNav({ items, children }: MainNavProps) {
   return (
     <div className="flex gap-6 md:gap-10">
       <Link href="/" className="hidden items-center space-x-2 md:flex">
-        <Image src="/digital_ob.svg" width={43} height={43} alt="logo" />
+        <Image
+          className="-mx-4"
+          src="https://www.lifloelectronics.co.ke/wp-content/uploads/2021/10/kenya-police-logo-white.png"
+          width={50}
+          height={50}
+          alt="Kenya Police Logo"
+        />
         <span className="hidden font-bold sm:inline-block">
           {siteConfig.name}
         </span>
@@ -54,7 +60,13 @@ export function MainNav({ items, children }: MainNavProps) {
         {showMobileMenu ? (
           <GrClose />
         ) : (
-          <Image src="/digital_ob.svg" width={43} height={43} alt="logo" />
+          <Image
+            className="-mx-4"
+            src="https://www.lifloelectronics.co.ke/wp-content/uploads/2021/10/kenya-police-logo-white.png"
+            width={50}
+            height={50}
+            alt="Kenya Police Logo"
+          />
         )}
         <span className="font-bold">Menu</span>
       </button>
