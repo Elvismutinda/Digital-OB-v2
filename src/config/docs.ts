@@ -73,17 +73,14 @@ export const docsConfig: DocsConfig = {
         {
           title: "System Development Methodology",
           href: "/docs/analysis/methodology",
-          disabled: true,
         },
         {
           title: "Requirements Elicitation",
           href: "/docs/analysis/requirements",
-          disabled: true,
         },
         {
           title: "System Design",
           href: "/docs/analysis/design",
-          disabled: true,
         },
       ],
     },
