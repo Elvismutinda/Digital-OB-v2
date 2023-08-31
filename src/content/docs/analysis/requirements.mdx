@@ -2,3 +2,135 @@
 title: Requirements Elicitation
 description: TODO.
 ---
+
+In order to gather the required functionalities that the system should offer and how to manage it efficiently, I 
+got in touch with a police officer at Central Police Station, Nairobi, and had a conversation with a friend whom had once 
+reported a crime at Parklands Police Station and got to see how the digital O.B system works and some of its 
+challenges.  
+
+### Methods used:
+
+1. Interviews.
+2. Online research.
+
+#### Findings
+
+The OCS is the one in charge of the police station as well as the O.B. When someone goes to report an incident at 
+the police station, they are given an OB Number as per the nature of their report.
+
+For example, we could have the complaint below:
+
+
+
+In the figure above, the nature of report is `Obtaining money by false pretense` and O.B. No. is `42/30/08/2018` 
+meaning that it is the 42nd time obtaining money by false pretense has been reported at Parklands Police Station. 
+The series of numbers and slashes following represent the date the crime was reported at the station.
+
+From this we can say that the O.B is a complete record of reports of incidents, crimes, complaints and also a sort 
+of inventory of all the suspects and the accusations against them.
+
+### Functional Requirements
+
+#### 1. User Login
+
+This feature is used for 3 types of users (Admin, Police and Criminal Investigation Officer) to login into the system. 
+Where client in this case can be undercover police agents. They are required to key in their staff ID and password 
+before they are granted permission to access the system. The staff ID and password will be verified to prevent 
+unauthorized personnel from accessing the system. All users are registered by the admin who gives them a unique 
+staff ID that the system will identify them by.
+
+#### 2. Validate And authenticate user
+
+This feature ensures that the system user's identities are protected accordingly by validating and authenticating 
+the user login details.
+
+#### 3. Register a new user
+
+This feature is used by the admin and in-charge officer to register new system users (staff). The system ensures 
+that the information supplied by the admin and in-charge officer is of the correct form through the input type of 
+the registration form.
+
+#### 4. Edit or Delete Information
+
+This feature allows the system users to edit and delete information from the system based on their privileges. 
+For example, only the admin user can edit and delete the records of other users in the system database. Admin 
+selects the particular user from the records to view the details to be edited. The system responds by displaying 
+the details that can be edited. The admin then edits the records as required and updates. The admin is also able 
+to delete user data from the `users` system database table. The system must then inform the admin of the update 
+success once the record has successfully been updated (edit or delete).
+
+#### 5. Add station
+
+This feature allows the admin to add stations in the system. Once the police station details have been added to the 
+system database, the admin is also able to edit the details and delete the station from the system database.
+
+#### 6. Add complainant
+
+This feature allows the system user (police) to add a complaint into the system database. Here, the complainant 
+details are recorded into the database.
+
+#### 7. Add Case
+
+Once the complainant details are recorded, a new case is created from the details recorded and they are saved in the 
+system databases.
+
+#### 8. Add Suspect
+
+This feature allows the police to add a suspect into the system database if there is any connection to a reported 
+case.
+
+#### 9. Assign Case
+
+This feature allows the in-charge officer or police officer of a certain police station to assign a case to an 
+investigating officer present in their station. The investigating officer can view the cases assigned to them. 
+
+#### 10. Generate Report
+
+The system should be able to generate reports about the victim, suspect and the crime committed.
+
+### Non-Functional Requirements
+
+#### 1. Usability Requirements
+
+The system must be designed with a user-friendly interface and easy to use by all users so that they can perform 
+their tasks easily.
+
+#### 2. Security requirements
+
+The system authentication protocol and access control must be highly secured when logging into the system. 
+Passwords are encrypted and hashed using MD5 function. This is because some privileges are only meant for the 
+system administrator., meaning if the security is compromised, the whole system is compromised.
+
+#### 3. Reliability requirements
+
+The system must perform accurately towards the user's requests. For example, when a system user saves edited 
+details, when they review the details later, they must be changed accordingly to the latest details that was 
+updated.
+
+#### 4. Error handling
+
+An appropriate error message should be displayed to guide the user on how to recover from an error in case they run 
+into one.
+
+### Technical Requirements
+
+#### 1. Server-Side Requirements Specification
+
+Keep in mind the application stores a large amount of crime data.
+
+|Hardware               |Software                                   |
+|-----------------------|-------------------------------------------|
+|Processor  |2.2 GHz    |Frontend           |React & Tailwind CSS   |
+|RAM        |8GB        |Backend            |Next.js Api Routes     |
+|Hard disk  |8GB        |Database           |Postgresql             |
+|           |           |Web server         |Next start             |
+|           |           |Operating system   |Linux or Windows       |
+
+#### 2. Client-Side Requirements Specification
+
+|Hardware                           |Software                                   |
+|-----------------------------------|-------------------------------------------|
+|Processor              |2.2 GHz    |Operating System   |Linux or Windows       |
+|RAM                    |8GB        |Browser            |Chrome, Firefox, etc   |
+|Hard disk              |8GB        |                   |                       |
+|Internet Connection    |           |                   |                       |
