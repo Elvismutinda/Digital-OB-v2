@@ -26,20 +26,19 @@ export const docsConfig: DocsConfig = {
       items: [
         {
           title: "Background of the Study",
-          href: "/docs/documentation",
+          href: "/docs/introduction",
         },
         {
           title: "Problem Statement",
-          href: "/docs/in-progress",
-          disabled: true,
+          href: "/docs/introduction/problem",
         },
         {
           title: "Objectives",
-          href: "/docs/documentation/components",
+          href: "/docs/introduction/objectives",
         },
         {
           title: "Scope of the Study",
-          href: "/docs/documentation/code-blocks",
+          href: "/docs/introduction/scope",
         },
       ],
     },
@@ -48,26 +47,23 @@ export const docsConfig: DocsConfig = {
       items: [
         {
           title: "Definition of Crime",
-          href: "/docs/in-progress",
-          disabled: true,
+          href: "/docs/literature/definition",
         },
         {
           title: "Classification of Crime",
-          href: "/docs/in-progress",
-          disabled: true,
+          href: "/docs/literature/classification",
         },
         {
           title: "Crime in Kenya",
-          href: "/docs/in-progress",
-          disabled: true,
+          href: "/docs/literature/crime-in-kenya",
         },
         {
           title: "Proposed Solution",
-          href: "/docs/in-progress",
+          href: "/docs/literature/proposal",
         },
         {
           title: "Existing Crime Management Systems",
-          href: "/docs/in-progress",
+          href: "/docs/literature/existing-systems",
         },
       ],
     },
@@ -76,17 +72,17 @@ export const docsConfig: DocsConfig = {
       items: [
         {
           title: "System Development Methodology",
-          href: "/docs/in-progress",
+          href: "/docs/analysis/methodology",
           disabled: true,
         },
         {
           title: "Requirements Elicitation",
-          href: "/docs/in-progress",
+          href: "/docs/analysis/requirements",
           disabled: true,
         },
         {
           title: "System Design",
-          href: "/docs/in-progress",
+          href: "/docs/analysis/design",
           disabled: true,
         },
       ],
@@ -96,17 +92,17 @@ export const docsConfig: DocsConfig = {
       items: [
         {
           title: "Technologies Used",
-          href: "/docs/in-progress",
+          href: "/docs/implementation",
           disabled: true,
         },
         {
           title: "System Testing",
-          href: "/docs/in-progress",
+          href: "/docs/implementation",
           disabled: true,
         },
         {
           title: "Test Cases and Results",
-          href: "/docs/in-progress",
+          href: "/docs/implementation",
           disabled: true,
         },
       ],
@@ -116,11 +112,13 @@ export const docsConfig: DocsConfig = {
       items: [
         {
           title: "Recommendations",
-          href: "/docs/in-progress",
+          href: "/docs/conclusion",
+          disabled: true,
         },
         {
           title: "References",
-          href: "/docs/in-progress",
+          href: "/docs/conclusion",
+          disabled: true,
         },
       ],
     },
@@ -129,19 +127,23 @@ export const docsConfig: DocsConfig = {
       items: [
         {
           title: "User Manual",
-          href: "/docs/in-progress",
+          href: "/docs/appendix",
+          disabled: true,
         },
         {
           title: "Sample Code",
-          href: "/docs/in-progress",
+          href: "/docs/appendix",
+          disabled: true,
         },
         {
           title: "Work Plan",
-          href: "/docs/in-progress",
+          href: "/docs/appendix",
+          disabled: true,
         },
         {
           title: "Interview Guide",
-          href: "/docs/in-progress",
+          href: "/docs/appendix",
+          disabled: true,
         },
       ],
     },
