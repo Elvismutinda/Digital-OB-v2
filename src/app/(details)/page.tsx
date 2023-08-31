@@ -2,6 +2,7 @@ import { buttonVariants } from "@/components/ui/Button";
 import { siteConfig } from "@/config/site";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
+import { IoIosCreate } from "react-icons/io";
 
 const IndexPage = () => {
   return (
@@ -93,7 +94,7 @@ const IndexPage = () => {
           <div className="relative overflow-hidden rounded-lg border bg-background p-2">
             <div className="flex h-[180px] flex-col justify-between rounded-md p-6">
               <svg viewBox="0 0 24 24" className="h-12 w-12 fill-current">
-                <path d="M0 12C0 5.373 5.373 0 12 0c4.873 0 9.067 2.904 10.947 7.077l-15.87 15.87a11.981 11.981 0 0 1-1.935-1.099L14.99 12H12l-8.485 8.485A11.962 11.962 0 0 1 0 12Zm12.004 12L24 12.004C23.998 18.628 18.628 23.998 12.004 24Z" />
+                <path d="M3.084 15.25c-1.664 0-2.6-1.912-1.58-3.226L10.21.807C10.794.054 12 .467 12 1.42v7.33h8.916c1.663 0 2.6 1.913 1.58 3.227L13.79 23.194c-.584.753-1.79.34-1.79-.613v-7.33H3.084Z" />
               </svg>
               <div className="space-y-2">
                 <h3 className="font-bold">Database</h3>
@@ -138,9 +139,7 @@ const IndexPage = () => {
           </div>
           <div className="relative overflow-hidden rounded-lg border bg-background p-2">
             <div className="flex h-[180px] flex-col justify-between rounded-md p-6">
-              <svg viewBox="0 0 24 24" className="h-12 w-12 fill-current">
-                <path d="M13.976 9.15c-2.172-.806-3.356-1.426-3.356-2.409 0-.831.683-1.305 1.901-1.305 2.227 0 4.515.858 6.09 1.631l.89-5.494C18.252.975 15.697 0 12.165 0 9.667 0 7.589.654 6.104 1.872 4.56 3.147 3.757 4.992 3.757 7.218c0 4.039 2.467 5.76 6.476 7.219 2.585.92 3.445 1.574 3.445 2.583 0 .98-.84 1.545-2.354 1.545-1.875 0-4.965-.921-6.99-2.109l-.9 5.555C5.175 22.99 8.385 24 11.714 24c2.641 0 4.843-.624 6.328-1.813 1.664-1.305 2.525-3.236 2.525-5.732 0-4.128-2.524-5.851-6.594-7.305h.003z" />
-              </svg>
+              <IoIosCreate className="h-12 w-12 fill-current" />
               <div className="space-y-2">
                 <h3 className="font-bold">CRUD Operations</h3>
                 <p className="text-sm text-muted-foreground">
