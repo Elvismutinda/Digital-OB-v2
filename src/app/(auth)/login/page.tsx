@@ -17,7 +17,7 @@ const page = () => {
           )}
         >
           <FiChevronLeft className="mr-2 h-4 w-4" />
-          Home
+          Return Home
         </Link>
 
         <div className="container mx-auto flex flex-col w-full justify-center space-y-6 sm:w-[400px]">
