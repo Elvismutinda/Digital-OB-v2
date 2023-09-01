@@ -13,15 +13,12 @@ const AdminLayout = async ({ children }: { children: React.ReactNode }) => {
   }
   return (
     <div className="flex min-h-screen flex-col space-y-6">
-      {/* <header className="sticky top-0 z-40 border b bg-background">
-        <div className="container flex h-16 items-center justify-between py-4"></div>
-      </header> */}
       <div className="container grid flex-1 gap-12 md:grid-cols-[200px_1fr]">
         <aside className="hidden w-[200px] flex-col md:flex">
           <AdminNav items={adminConfig.sidebarNav} />
         </aside>
-        <main className="flex w-full flex-1 flex-col overflow-hidden bg-slate-50">
-          <header className="sticky top-0 z-40 border-b bg-background">
+        <main className="flex w-full flex-1 flex-col overflow-hidden">
+          <header className="sticky top-0 z-40 border-b bg-background mb-10">
             <div className="container flex h-16 items-center justify-between py-4">
               {user.name} - {user.role}
               <UserAccountNav
