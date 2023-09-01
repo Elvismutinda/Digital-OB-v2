@@ -17,7 +17,7 @@ export default function NotFound() {
                 <IoWarningOutline className='h-10 w-10' />
             </div> */}
       <Image
-        src="/images/laziness.svg"
+        src="/images/notfound.svg"
         width={500}
         height={500}
         alt="Page Not Found"
