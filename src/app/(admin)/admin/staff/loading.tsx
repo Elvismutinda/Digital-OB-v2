@@ -1,16 +1,13 @@
 import CardSkeleton from "@/components/CardSkeleton";
 import SiteHeader from "@/components/SiteHeader";
 import SiteShell from "@/components/SiteShell";
-import { Button, buttonVariants } from "@/components/ui/Button";
-import { cn } from "@/lib/utils";
+import StaffCreateButton from "@/components/admin/StaffCreateButton";
 
 const AdminStaffLoading = () => {
   return (
     <SiteShell>
       <SiteHeader heading="Staff">
-        <Button className={cn(buttonVariants({ variant: "default" }))}>
-          Test
-        </Button>
+        <StaffCreateButton />
       </SiteHeader>
       <div className="grid gap-10">
         <CardSkeleton />
