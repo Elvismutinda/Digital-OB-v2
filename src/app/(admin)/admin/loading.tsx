@@ -1,11 +1,16 @@
-import React from 'react'
+import CardSkeleton from "@/components/CardSkeleton";
+import SiteHeader from "@/components/SiteHeader";
+import SiteShell from "@/components/SiteShell";
 
-type Props = {}
-
-const loading = (props: Props) => {
+const AdminPageLoading = () => {
   return (
-    <div>loading</div>
-  )
-}
+    <SiteShell>
+      <SiteHeader heading="Dashboard" />
+      <div className="grid gap-10">
+        <CardSkeleton />
+      </div>
+    </SiteShell>
+  );
+};
 
-export default loading
+export default AdminPageLoading;
