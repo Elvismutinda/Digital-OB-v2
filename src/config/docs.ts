@@ -7,8 +7,8 @@ export const docsConfig: DocsConfig = {
       href: "/docs",
     },
     {
-      title: "Login from Home",
-      href: "/",
+      title: "Login to App",
+      href: "/login",
     },
   ],
   sidebarNav: [
