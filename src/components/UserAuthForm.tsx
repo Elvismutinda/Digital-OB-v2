@@ -62,7 +62,6 @@ const UserAuthForm = () => {
           render={({ field }) => (
             <div>
               <Input
-                autoComplete="off"
                 size="large"
                 {...field}
                 placeholder="Email Address"
