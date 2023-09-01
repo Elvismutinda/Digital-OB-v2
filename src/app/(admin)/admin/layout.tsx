@@ -3,7 +3,6 @@ import { notFound } from "next/navigation";
 import { getCurrentUser } from "@/lib/session";
 import AdminNav from "@/components/admin/AdminNav";
 import { adminConfig } from "@/config/admin";
-import SiteFooter from "@/components/SiteFooter";
 import UserAccountNav from "@/components/UserAccountNav";
 
 const AdminLayout = async ({ children }: { children: React.ReactNode }) => {
