@@ -6,6 +6,8 @@ import { usePathname } from "next/navigation";
 import { SidebarNavItem } from "@/types";
 import { cn } from "@/lib/utils";
 import { Icons } from "@/components/Icons";
+import Image from "next/image";
+import { siteConfig } from "@/config/site";
 
 type AdminNavProps = {
   items: SidebarNavItem[];
@@ -20,6 +22,16 @@ const AdminNav = ({ items }: AdminNavProps) => {
 
   return (
     <nav className="grid items-start gap-2">
+      <div className="flex flex-row items-center border-b h-16 cursor-pointer">
+        <Image
+          className="-mx-4"
+          src="https://www.lifloelectronics.co.ke/wp-content/uploads/2021/10/kenya-police-logo-white.png"
+          width={80}
+          height={50}
+          alt="Kenya Police Logo"
+        />
+        <span className="font-bold">{siteConfig.name}</span>
+      </div>
       {items.map((item, index) => {
         const Icon = Icons[item.icon || "arrowRight"];
         return (
