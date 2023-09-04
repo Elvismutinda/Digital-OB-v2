@@ -32,13 +32,13 @@ export const authOptions: NextAuthOptions = {
           },
         });
 
-        if (!user || !user?.password) {
+        if (!user || !user?.hashedPassword) {
           throw new Error("Invalid credentials");
         }
 
         const isCorrectPassword = await bcrypt.compare(
           credentials.password,
-          user.password
+          user.hashedPassword
         );
 
         if (!isCorrectPassword) {
@@ -49,39 +49,40 @@ export const authOptions: NextAuthOptions = {
       },
     }),
   ],
-  callbacks: {
-    async session({ token, session }) {
-        if (token) {
-            session.user.id = token.id;
-            session.user.name = token.name;
-            session.user.email = token.email;
-            session.user.image = token.picture;
-            session.user.role = token.role;
-        }
-        return session;
-    },
-    async jwt({ token, user }) {
-        const dbUser = await db.user.findFirst({
-            where: {
-                email: token.email
-            }
-        })
+  // callbacks: {
+  //   async session({ token, session }) {
+  //       if (token) {
+  //           session.user.id = token.id;
+  //           session.user.name = token.name;
+  //           session.user.email = token.email;
+  //           session.user.image = token.picture;
+  //           session.user.role = token.role;
+  //       }
+  //       return session;
+  //   },
+  //   async jwt({ token, user }) {
+  //       const dbUser = await db.user.findFirst({
+  //           where: {
+  //               email: token.email
+  //           }
+  //       })
 
-        if (!dbUser) {
-            if(user) {
-                token.id = user?.id;
-            }
-            return token;
-        }
+  //       if (!dbUser) {
+  //           if(user) {
+  //               token.id = user?.id;
+  //           }
+  //           return token;
+  //       }
 
-        return {
-            id: dbUser.id,
-            name: dbUser.name,
-            email: dbUser.email,
-            picture: dbUser.image,
-            role: dbUser.role
-        }
-    }
-  },
+  //       return {
+  //           id: dbUser.id,
+  //           name: dbUser.name,
+  //           email: dbUser.email,
+  //           picture: dbUser.image,
+  //           role: dbUser.role
+  //       }
+  //   }
+  // },
   secret: process.env.NEXTAUTH_SECRET,
+  debug: process.env.NODE_ENV === "development",
 };
