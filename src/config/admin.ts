@@ -28,14 +28,14 @@ export const adminConfig: AdminConfig = {
       icon: "analytics",
     },
     {
-      title: "Settings",
-      href: "/admin/settings",
-      icon: "settings",
-    },
-    {
       title: "Audit Logs",
       href: "/admin/logs",
       icon: "key",
+    },
+    {
+      title: "Settings",
+      href: "/admin/settings",
+      icon: "settings",
     },
   ],
 };
