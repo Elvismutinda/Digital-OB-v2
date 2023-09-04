@@ -35,7 +35,7 @@ export async function POST(req: Request) {
         staffId,
         email,
         name,
-        password: hashedPassword,
+        hashedPassword,
         role,
       },
     });
