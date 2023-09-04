@@ -20,14 +20,18 @@ const AdminLayout = async ({ children }: { children: React.ReactNode }) => {
         <main className="flex w-full flex-1 flex-col overflow-hidden">
           <header className="sticky top-0 z-40 border-b bg-background mb-10">
             <div className="container flex h-16 items-center justify-between py-4">
-              {user.name} - {user.role}
-              <UserAccountNav
-                user={{
-                  name: user.name,
-                  image: user.image,
-                  email: user.email,
-                }}
-              />
+              <div>
+                {user.name} - {user.role}
+              </div>
+              <div>
+                <UserAccountNav
+                  user={{
+                    name: user.name,
+                    image: user.image,
+                    email: user.email,
+                  }}
+                />
+              </div>
             </div>
           </header>
           {children}
