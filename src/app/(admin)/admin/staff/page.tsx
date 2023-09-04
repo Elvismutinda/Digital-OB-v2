@@ -5,6 +5,7 @@ import { getCurrentUser } from "@/lib/session";
 import SiteHeader from "@/components/SiteHeader";
 import SiteShell from "@/components/SiteShell";
 import StaffCreateButton from "@/components/admin/StaffCreateButton";
+import StaffDetails from "@/components/admin/StaffDetails";
 
 export const metadata = {
   title: "Staff",
@@ -22,7 +23,7 @@ const StaffPage = async () => {
       <SiteHeader heading="Staff">
         <StaffCreateButton />
       </SiteHeader>
-      <div className="grid gap-10">{/* TODO: Add staff data */}</div>
+      <StaffDetails />
     </SiteShell>
   );
 };
