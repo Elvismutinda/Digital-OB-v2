@@ -42,6 +42,21 @@ const UserAccountNav = ({ user }: UserAccountNavProps) => {
             <Link href="/admin">Dashboard</Link>
           </DropdownMenuItem>
           <DropdownMenuItem asChild>
+            <Link href="/admin/staff">Staff</Link>
+          </DropdownMenuItem>
+          <DropdownMenuItem asChild>
+            <Link href="/admin/stations">Stations</Link>
+          </DropdownMenuItem>
+          <DropdownMenuItem asChild>
+            <Link href="/admin/cases">Cases</Link>
+          </DropdownMenuItem>
+          <DropdownMenuItem asChild>
+            <Link href="/admin/reports">Reports</Link>
+          </DropdownMenuItem>
+          <DropdownMenuItem asChild>
+            <Link href="/admin/logs">Audit Logs</Link>
+          </DropdownMenuItem>
+          <DropdownMenuItem asChild>
             <Link href="/admin/settings">Settings</Link>
           </DropdownMenuItem>
           <DropdownMenuSeparator />
