@@ -6,11 +6,11 @@ import { adminConfig } from "@/config/admin";
 import UserAccountNav from "@/components/UserAccountNav";
 
 const AdminLayout = async ({ children }: { children: React.ReactNode }) => {
-  const user = await getCurrentUser();
+  // const user = await getCurrentUser();
 
-  if (!user) {
-    return notFound();
-  }
+  // if (!user) {
+  //   return notFound();
+  // }
   return (
     <div className="flex min-h-screen flex-col space-y-6">
       <div className="container grid flex-1 gap-12 md:grid-cols-[200px_1fr]">
@@ -20,7 +20,7 @@ const AdminLayout = async ({ children }: { children: React.ReactNode }) => {
         <main className="flex w-full flex-1 flex-col overflow-hidden">
           <header className="sticky top-0 z-40 border-b bg-background mb-10">
             <div className="container flex h-16 items-center justify-between py-4">
-              <div>
+              {/* <div>
                 {user.name} - {user.role}
               </div>
               <div>
@@ -31,7 +31,7 @@ const AdminLayout = async ({ children }: { children: React.ReactNode }) => {
                     email: user.email,
                   }}
                 />
-              </div>
+              </div> */}
             </div>
           </header>
           {children}

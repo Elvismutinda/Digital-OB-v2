@@ -7,24 +7,25 @@ import SiteShell from "@/components/SiteShell";
 import { Button, buttonVariants } from "@/components/ui/Button";
 import { cn } from "@/lib/utils";
 import StationCreateButton from "@/components/admin/StationCreateButton";
+import StationDetails from "@/components/admin/StationDetails";
 
 export const metadata = {
   title: "Stations",
 };
 
 const StationsPage = async () => {
-  const user = await getCurrentUser();
+  // const user = await getCurrentUser();
 
-  if (!user) {
-    redirect(authOptions?.pages?.signIn || "/login");
-  }
+  // if (!user) {
+  //   redirect(authOptions?.pages?.signIn || "/login");
+  // }
 
   return (
     <SiteShell>
       <SiteHeader heading="Stations">
         <StationCreateButton />
       </SiteHeader>
-      <div className="grid gap-10">{/* TODO: Add stations data */}</div>
+      <StationDetails />
     </SiteShell>
   );
 };

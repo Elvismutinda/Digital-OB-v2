@@ -12,11 +12,11 @@ export const metadata = {
 };
 
 const StaffPage = async () => {
-  const user = await getCurrentUser();
+  // const user = await getCurrentUser();
 
-  if (!user) {
-    redirect(authOptions?.pages?.signIn || "/login");
-  }
+  // if (!user) {
+  //   redirect(authOptions?.pages?.signIn || "/login");
+  // }
 
   return (
     <SiteShell>
