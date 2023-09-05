@@ -1,96 +1,91 @@
 "use client";
 
-import { Space, Table } from "antd";
-import React from "react";
-import { UserOutlined } from "@ant-design/icons";
+import { Button, Popconfirm, Space, Table } from "antd";
+import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
+import React, { useEffect } from "react";
+import axios from "axios";
 
-type Props = {};
+const cols = [
+  {
+    title: "Staff ID",
+    dataIndex: "staffId",
+    key: "staffId",
+  },
+  {
+    title: "Full Name",
+    dataIndex: "name",
+    key: "name",
+  },
+  {
+    title: "Rank",
+    dataIndex: "rank",
+    key: "rank",
+  },
+  {
+    title: "Email",
+    dataIndex: "email",
+    key: "email",
+  },
+  {
+    title: "Station",
+    dataIndex: "station",
+    key: "station",
+  },
+  {
+    title: "Role",
+    dataIndex: "role",
+    key: "role",
+  },
+  {
+    title: "Gender",
+    dataIndex: "gender",
+    key: "gender",
+  },
+  {
+    title: "Action",
+    key: "action",
+    render: (record) => (
+      <Space direction="horizontal">
+        <Button icon={<EditOutlined />}></Button>
+        <Popconfirm title="Are you sure you want to delete this staff?" okText='Yes'>
+          <Button icon={<DeleteOutlined />} />
+        </Popconfirm>
+      </Space>
+    ),
+  },
+];
 
-const StaffDetails = (props: Props) => {
-  let columns = [
-    { label: "Staff ID", value: "staffId" },
-    { label: "Name", value: "name" },
-    { label: "Rank", value: "rank" },
-    { label: "Station", value: "station" },
-    { label: "Status", value: "status" },
-    { label: "Gender", value: "gender" },
-    {
-      label: "Action",
-      value: "action",
-      render: () => (
-        <Space size="middle">
-          <a>
-            <UserOutlined />
-          </a>
-          <a>
-            <UserOutlined />
-          </a>
-        </Space>
-      ),
-    },
-  ];
-  const cols = columns.map((col) => {
-    return {
-      title: col.label,
-      dataIndex: col.value,
-      key: col.value,
-    };
-  });
+const StaffDetails = () => {
+  const [data, setData] = React.useState([]);
+  const [isLoading, setIsLoading] = React.useState(true);
 
-  let data = [
-    {
-      staffId: "1",
-      name: "test",
-      rank: "testRank",
-      station: "Teststation station",
-      status: "active",
-      gender: "male",
-      action: (
-        <Space size="middle">
-          <a>
-            <UserOutlined />
-          </a>
-          <a>
-            <UserOutlined />
-          </a>
-        </Space>
-      ),
-    },
-    {
-      staffId: "1",
-      name: "test",
-      rank: "testRank",
-      station: "Teststation station",
-      status: "active",
-      gender: "male",
-      action: (
-        <Space size="middle">
-          <a>
-            <UserOutlined />
-          </a>
-          <a>
-            <UserOutlined />
-          </a>
-        </Space>
-      ),
-    },
-  ];
+  useEffect(() => {
+    getData();
+  }, []);
 
-  const rows = data.map((row) => {
-    return {
-      staffId: row.staffId,
-      name: row.name,
-      rank: row.rank,
-      station: row.station,
-      status: row.status,
-      gender: row.gender,
-    };
-  });
+  const getData = async () => {
+    const res = await axios.get("/api/users");
+    // console.log(res.data)
+    setIsLoading(false);
+    setData(
+      res.data.map((row) => ({
+        staffId: row.staffId,
+        name: row.name,
+        rank: row.rank,
+        email: row.email,
+        station: row.station,
+        role: row.role,
+        gender: row.gender,
+        key: row.staffId,
+      }))
+    );
+  };
   return (
     <div className="max-w-full">
-      <div className="">
+      <div>
         <Table
           size="small"
+          loading={isLoading}
           columns={cols}
           dataSource={data}
           pagination={{
@@ -98,6 +93,7 @@ const StaffDetails = (props: Props) => {
             showSizeChanger: true,
             pageSizeOptions: ["15", "20", "50", "100"],
           }}
+          rowKey={(record) => record.key}
         />
       </div>
     </div>
