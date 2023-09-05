@@ -11,11 +11,14 @@ export const registerUserSchema = z.object({
   name: z
     .string({ required_error: "Name is required" })
     .min(1, "Full name is required"),
+  rank: z.string({ required_error: "Rank is required" }),
+  station: z.string({ required_error: "Station is required" }),
+  role: z.string({ required_error: "Role is required" }),
   password: z
     .string({ required_error: "Password is required" })
     .min(1, "Password is required")
     .min(8, "Password must be at least 8 characters"),
-  role: z.string({ required_error: "Role is required" }),
+  gender: z.string({ required_error: "Gender is required" }),
 });
 
 export const loginUserSchema = z.object({
