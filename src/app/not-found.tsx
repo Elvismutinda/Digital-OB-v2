@@ -1,7 +1,6 @@
 import { buttonVariants } from "@/components/ui/Button";
 import Image from "next/image";
 import Link from "next/link";
-import { IoWarningOutline } from "react-icons/io5";
 
 export default function NotFound() {
   return (
@@ -13,9 +12,6 @@ export default function NotFound() {
           Go to Home Page
         </Link>
       </div>
-      {/* <div className="flex h-20 w-20 items-center justify-center rounded-full bg-muted">
-                <IoWarningOutline className='h-10 w-10' />
-            </div> */}
       <Image
         src="/images/notfound.svg"
         width={500}
