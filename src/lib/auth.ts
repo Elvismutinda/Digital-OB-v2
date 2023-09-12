@@ -48,7 +48,7 @@ export const authOptions: NextAuthOptions = {
         session.user.username = token.username;
         session.user.role = token.role;
       }
-      console.log("Session: ", session)
+      // console.log("Session: ", session)
 
       return session;
     },
@@ -76,7 +76,7 @@ export const authOptions: NextAuthOptions = {
         });
       }
 
-      console.log("Token: ", token)
+      // console.log("Token: ", token)
 
       return {
         id: dbUser.id,
