@@ -1,16 +1,22 @@
-import { notFound } from "next/navigation";
+import { redirect } from "next/navigation";
 
-import { getCurrentUser } from "@/lib/session";
 import AdminNav from "@/components/admin/AdminNav";
 import { adminConfig } from "@/config/admin";
-import UserAccountNav from "@/components/UserAccountNav";
+import { UserAccountNav } from "@/components/UserAccountNav";
+import { authOptions } from "@/lib/auth";
+import { getServerSession } from "next-auth";
 
 const AdminLayout = async ({ children }: { children: React.ReactNode }) => {
-  // const user = await getCurrentUser();
+  const session = await getServerSession(authOptions);
 
-  // if (!user) {
-  //   return notFound();
+  if (!session) {
+    redirect(authOptions?.pages?.signIn || "/login");
+  }
+
+  // if (session?.user?.role !== "Admin") {
+  //   redirect(authOptions?.pages?.signIn || "/login")
   // }
+
   return (
     <div className="flex min-h-screen flex-col space-y-6">
       <div className="container grid flex-1 gap-12 md:grid-cols-[200px_1fr]">
@@ -20,18 +26,12 @@ const AdminLayout = async ({ children }: { children: React.ReactNode }) => {
         <main className="flex w-full flex-1 flex-col overflow-hidden">
           <header className="sticky top-0 z-40 border-b bg-background mb-10">
             <div className="container flex h-16 items-center justify-between py-4">
-              {/* <div>
-                {user.name} - {user.role}
+              <div>
+                {session?.user.name} - {session?.user.role}
               </div>
               <div>
-                <UserAccountNav
-                  user={{
-                    name: user.name,
-                    image: user.image,
-                    email: user.email,
-                  }}
-                />
-              </div> */}
+                <UserAccountNav user={session.user} />
+              </div>
             </div>
           </header>
           {children}

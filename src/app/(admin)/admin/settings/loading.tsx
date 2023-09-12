@@ -5,7 +5,7 @@ import SiteShell from "@/components/SiteShell";
 const AdminSettingsLoading = () => {
   return (
     <SiteShell>
-      <SiteHeader heading="Settings" text="Manage account settings." />
+      <SiteHeader heading="Account" text="Update your account settings." />
       <div className="grid gap-10">
         <CardSkeleton />
       </div>
