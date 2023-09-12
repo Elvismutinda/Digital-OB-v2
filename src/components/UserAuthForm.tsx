@@ -1,15 +1,17 @@
 "use client";
 
-import { loginUserForm, loginUserSchema } from "@/lib/validations/user";
-import React, { useState } from "react";
-import { Controller, useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { LuLoader2 } from "react-icons/lu";
-import { Input } from "antd";
+import { useState } from "react";
 import { signIn } from "next-auth/react";
+
+import { Controller, useForm } from "react-hook-form";
+import { loginUserForm, loginUserSchema } from "@/lib/validations/user";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { Input } from "antd";
 import { useToast } from "@/hooks/use-toast";
 import { buttonVariants } from "./ui/Button";
 import { cn } from "@/lib/utils";
+import { LuLoader2 } from "react-icons/lu";
+// import { FaGoogle } from "react-icons/fa";
 
 const UserAuthForm = () => {
   const {
@@ -21,6 +23,7 @@ const UserAuthForm = () => {
   });
 
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  // const [isGoogleLoading, setIsGoogleLoading] = useState<boolean>(false);
   const { toast } = useToast();
 
   async function onSubmit(data: loginUserForm) {
@@ -30,10 +33,9 @@ const UserAuthForm = () => {
       email: data.email.toLowerCase(),
       password: data.password,
       redirect: false,
-      callbackUrl: "/admin" || "/incharge" || "police" || "detective",
     });
 
-    console.log("Result: ", signInResult);
+    // console.log("Result: ", signInResult);
 
     setIsLoading(false);
 
@@ -62,6 +64,7 @@ const UserAuthForm = () => {
           render={({ field }) => (
             <div>
               <Input
+                autoComplete="email"
                 size="large"
                 {...field}
                 placeholder="Email Address"
@@ -96,14 +99,37 @@ const UserAuthForm = () => {
           )}
         />
 
-        <button
-          className={cn(buttonVariants())}
-          disabled={isLoading}
-        >
+        <button className={cn(buttonVariants())} disabled={isLoading}>
           {isLoading && <LuLoader2 className="mr-2 h-4 w-4 animate-spin" />}
           Login
         </button>
       </form>
+      {/* <div className="relative">
+        <div className="absolute inset-0 flex items-center">
+          <span className="w-full border-t" />
+        </div>
+        <div className="relative flex justify-center text-xs uppercase">
+          <span className="bg-background px-2 text-muted-foreground">
+            Or continue with
+          </span>
+        </div>
+      </div>
+      <button
+        type="button"
+        className={cn(buttonVariants({ variant: "outline" }))}
+        onClick={() => {
+          setIsGoogleLoading(true);
+          signIn("google");
+        }}
+        disabled={isLoading || isGoogleLoading}
+      >
+        {isGoogleLoading ? (
+          <LuLoader2 className="mr-2 h-4 w-4 animate-spin" />
+        ) : (
+          <FaGoogle className="mr-2 h-4 w-4" />
+        )}{" "}
+        Google
+      </button> */}
     </div>
   );
 };
