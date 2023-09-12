@@ -6,51 +6,129 @@ generator client {
 }
 
 datasource db {
-  provider = "mongodb"
+  provider = "postgresql"
   url      = env("DATABASE_URL")
 }
 
 model Account {
-  id                String   @id @default(auto()) @map("_id") @db.ObjectId
-  userId            String   @db.ObjectId
+  id                String  @id @default(cuid())
+  userId            String
   type              String
   provider          String
   providerAccountId String
-  refresh_token     String?  @db.String
-  access_token      String?  @db.String
+  refresh_token     String? @db.Text
+  access_token      String? @db.Text
   expires_at        Int?
   token_type        String?
   scope             String?
-  id_token          String?  @db.String
+  id_token          String? @db.Text
   session_state     String?
-  createdAt         DateTime @default(now()) @map(name: "created_at")
-  updatedAt         DateTime @default(now()) @map(name: "updated_at")
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([provider, providerAccountId])
 }
 
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
 model User {
-  id             String    @id @default(auto()) @map("_id") @db.ObjectId
+  id             String    @id @default(cuid())
   name           String?
+  username       String?   
   email          String?   @unique
+  hashedPassword String?
   emailVerified  DateTime?
   image          String?
-  hashedPassword String?
   staffId        String?   @unique
-  role           String?   @default("admin")
+  rank           String?
+  role           String?   @default("Admin")
+  gender         String?
+  station        String?
   createdAt      DateTime  @default(now())
   updatedAt      DateTime  @updatedAt
 
+  // createdCases  Case[]    @relation("CaseCreator")
+  // assignedCases Case[]    @relation("CaseDetective")
   accounts Account[]
   sessions Session[]
 }
 
-model Session {
-  id           String   @id @default(auto()) @map("_id") @db.ObjectId
-  sessionToken String   @unique
-  userId       String   @db.ObjectId
-  expires      DateTime
-  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
 }
+
+model Station {
+  id         String   @id @default(cuid())
+  name       String?
+  county     String?
+  sub_county String?
+  contact    String?
+  dateAdded  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+}
+
+model Case {
+  id          String    @id @default(cuid())
+  ob_number   String    @unique
+  crime       String?
+  recorded_by String
+  status      String    @default("Pending")
+  statement   String
+  station     String
+  report      String
+  reportedAt  DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  completedAt DateTime?
+
+  // detectiveId String?
+  // Detective   User?   @relation("CaseDetective", fields: [detectiveId], references: [id])
+
+  // creatorId String?
+  // Creator   User?   @relation("CaseCreator", fields: [creatorId], references: [id])
+
+  Complainant   Complainant? @relation(fields: [complainantId], references: [id])
+  complainantId String?
+
+  // suspects Suspect[]
+
+  @@index([ob_number])
+}
+
+model Complainant {
+  id         String   @id @default(cuid())
+  ob_number  String   @unique
+  name       String
+  contact    String
+  occupation String
+  address    String
+  age        Int
+  gender     String
+  addedAt    DateTime @default(now())
+
+  cases Case[]
+}
+
+// model Suspect {
+//   id        String   @id @default(cuid())
+//   ob_number String   @unique
+//   name      String
+//   station   String
+//   crime     String
+//   dob       DateTime
+//   address   String
+//   contact   String
+//   gender    String
+//   addedAt   DateTime @default(now())
+
+//   cases Case[]
+// }
