@@ -1,24 +1,24 @@
 import * as z from "zod";
 
 export const registerUserSchema = z.object({
-  staffId: z
-    .string({ required_error: "Staff ID is required" })
-    .min(1, "Staff ID is required"),
+  name: z
+    .string({ required_error: "Name is required" })
+    .min(1, "Full name is required"),
   email: z
     .string({ required_error: "Email is required" })
     .min(1, "Email is required")
     .email("Invalid email address"),
-  name: z
-    .string({ required_error: "Name is required" })
-    .min(1, "Full name is required"),
-  rank: z.string({ required_error: "Rank is required" }),
-  station: z.string({ required_error: "Station is required" }),
-  role: z.string({ required_error: "Role is required" }),
   password: z
     .string({ required_error: "Password is required" })
     .min(1, "Password is required")
     .min(8, "Password must be at least 8 characters"),
+  staffId: z
+    .string({ required_error: "Staff ID is required" })
+    .min(1, "Staff ID is required"),
+  rank: z.string({ required_error: "Rank is required" }),
+  role: z.string({ required_error: "Role is required" }),
   gender: z.string({ required_error: "Gender is required" }),
+  station: z.string({ required_error: "Station is required" }),
 });
 
 export const loginUserSchema = z.object({
