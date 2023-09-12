@@ -3,12 +3,18 @@ import { registerUserSchema } from "@/lib/validations/user";
 import { z } from "zod";
 import bcrypt from "bcrypt";
 import { getServerSession } from "next-auth";
-import { authOptions } from "@/lib/auth";
+import { authOptions, getAuthSession } from "@/lib/auth";
 
 export async function POST(req: Request) {
   try {
+    const session = await getAuthSession();
+
+    if (session?.user.role !== "Admin") {
+      return new Response("Unauthorized", { status: 401 });
+    }
+
     const body = await req.json();
-    const { name, rank, email, password, staffId, role, gender, station } =
+    const { name, email, password, staffId, rank, role, gender, station } =
       registerUserSchema.parse(body);
 
     // check if user already exists
@@ -35,10 +41,10 @@ export async function POST(req: Request) {
     const user = await db.user.create({
       data: {
         name,
-        rank,
         email,
         hashedPassword,
         staffId,
+        rank,
         role,
         gender,
         station,
@@ -57,21 +63,21 @@ export async function POST(req: Request) {
 
 export async function GET() {
   try {
-    // const session = await getServerSession(authOptions);
+    const session = await getServerSession(authOptions);
 
-    // if (!session) {
-    //   return new Response("Unauthorized", { status: 401 });
-    // }
+    if (!session) {
+      return new Response("Unauthorized", { status: 401 });
+    }
 
     const users = await db.user.findMany({
       select: {
-        staffId: true,
         name: true,
-        rank: true,
         email: true,
-        station: true,
+        staffId: true,
+        rank: true,
         role: true,
         gender: true,
+        station: true,
       },
     });
 
