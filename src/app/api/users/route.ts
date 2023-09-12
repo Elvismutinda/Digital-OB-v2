@@ -65,7 +65,7 @@ export async function GET() {
   try {
     const session = await getServerSession(authOptions);
 
-    if (!session) {
+    if (session?.user.role !== "Admin") {
       return new Response("Unauthorized", { status: 401 });
     }
 
