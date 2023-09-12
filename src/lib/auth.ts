@@ -1,13 +1,13 @@
 import { db } from "@/lib/db";
-import bcrypt from "bcrypt";
-import { NextAuthOptions } from "next-auth";
-import CredentialsProvider from "next-auth/providers/credentials";
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
+import { nanoid } from "nanoid";
+import { NextAuthOptions, getServerSession } from "next-auth";
+import CredentialsProvider from "next-auth/providers/credentials";
+import bcrypt from "bcrypt";
+import { loginUserSchema } from "./validations/user";
 
 export const authOptions: NextAuthOptions = {
-  // using any here because of a bug in the types
-  // @see https://github.com/prisma/prisma/issues/16117
-  adapter: PrismaAdapter(db as any),
+  adapter: PrismaAdapter(db),
   session: {
     strategy: "jwt",
   },
@@ -16,73 +16,78 @@ export const authOptions: NextAuthOptions = {
   },
   providers: [
     CredentialsProvider({
-      name: "credentials",
       credentials: {
-        email: { label: "email", type: "text" },
-        password: { label: "password", type: "password" },
+        email: { type: "email", label: "Email" },
+        password: { type: "password", label: "Password" },
       },
-      async authorize(credentials) {
-        if (!credentials?.email || !credentials?.password) {
-          throw new Error("Invalid credentials");
-        }
-
+      async authorize(credentials, req) {
+        const { email, password } = loginUserSchema.parse(credentials);
         const user = await db.user.findUnique({
-          where: {
-            email: credentials.email,
-          },
+          where: { email },
         });
+        if (!user) throw new Error("Invalid credentials");
 
-        if (!user || !user?.hashedPassword) {
-          throw new Error("Invalid credentials");
-        }
-
-        const isCorrectPassword = await bcrypt.compare(
-          credentials.password,
+        const isPasswordValid = await bcrypt.compare(
+          password,
           user.hashedPassword
         );
 
-        if (!isCorrectPassword) {
-          throw new Error("Invalid credentials");
-        }
+        if (!isPasswordValid) throw new Error("Invalid credentials");
 
         return user;
       },
     }),
   ],
-  // callbacks: {
-  //   async session({ token, session }) {
-  //       if (token) {
-  //           session.user.id = token.id;
-  //           session.user.name = token.name;
-  //           session.user.email = token.email;
-  //           session.user.image = token.picture;
-  //           session.user.role = token.role;
-  //       }
-  //       return session;
-  //   },
-  //   async jwt({ token, user }) {
-  //       const dbUser = await db.user.findFirst({
-  //           where: {
-  //               email: token.email
-  //           }
-  //       })
+  callbacks: {
+    async session({ token, session }) {
+      if (token) {
+        session.user.id = token.id;
+        session.user.name = token.name;
+        session.user.email = token.email;
+        session.user.image = token.picture;
+        session.user.username = token.username;
+        session.user.role = token.role;
+      }
+      console.log("Session: ", session)
 
-  //       if (!dbUser) {
-  //           if(user) {
-  //               token.id = user?.id;
-  //           }
-  //           return token;
-  //       }
+      return session;
+    },
 
-  //       return {
-  //           id: dbUser.id,
-  //           name: dbUser.name,
-  //           email: dbUser.email,
-  //           picture: dbUser.image,
-  //           role: dbUser.role
-  //       }
-  //   }
-  // },
-  secret: process.env.NEXTAUTH_SECRET,
-  debug: process.env.NODE_ENV === "development",
+    async jwt({ token, user }) {
+      const dbUser = await db.user.findFirst({
+        where: {
+          email: token.email,
+        },
+      });
+
+      if (!dbUser) {
+        token.id = user!.id;
+        return token;
+      }
+
+      if (!dbUser.username) {
+        await db.user.update({
+          where: {
+            id: dbUser.id,
+          },
+          data: {
+            username: nanoid(10),
+          },
+        });
+      }
+
+      console.log("Token: ", token)
+
+      return {
+        id: dbUser.id,
+        name: dbUser.name,
+        email: dbUser.email,
+        picture: dbUser.image,
+        username: dbUser.username,
+        role: dbUser.role,
+      };
+    },
+  },
 };
+
+export const getAuthSession = () => getServerSession(authOptions);
