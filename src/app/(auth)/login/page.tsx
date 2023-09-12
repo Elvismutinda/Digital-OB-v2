@@ -1,26 +1,34 @@
-import { buttonVariants } from "@/components/ui/Button";
-import { cn } from "@/lib/utils";
+import { Metadata } from "next";
 import Link from "next/link";
-import { FiChevronLeft } from "react-icons/fi";
 import Image from "next/image";
+
+import { cn } from "@/lib/utils";
+import { buttonVariants } from "@/components/ui/Button";
+import { FiChevronLeft } from "react-icons/fi";
 import UserAuthForm from "@/components/UserAuthForm";
 
-const page = () => {
+export const metadata: Metadata = {
+  title: "Login",
+  description: "Login to your account",
+};
+
+const LoginPage = () => {
   return (
-    <div className="absolute inset-0 bg-slate-50">
-      <div className="h-full max-w-2xl mx-auto flex flex-col items-center justify-center gap-20">
-        <Link
-          href="/"
-          className={cn(
-            buttonVariants({ variant: "ghost" }),
-            "absolute left-4 top-24 md:left-8 md:top-24"
-          )}
-        >
+    <div className="container grid h-screen w-screen flex-col items-center justify-center lg:max-w-none lg:grid-cols-2 lg:px-0">
+      <Link
+        href="/"
+        className={cn(
+          buttonVariants({ variant: "ghost" }),
+          "absolute left-4 top-4 md:left-8 md:top-8"
+        )}
+      >
+        <>
           <FiChevronLeft className="mr-2 h-4 w-4" />
           Return Home
-        </Link>
-
-        <div className="container mx-auto flex flex-col w-full justify-center space-y-6 sm:w-[400px]">
+        </>
+      </Link>
+      <div className="lg:p-8">
+        <div className="mx-auto flex flex-col w-full justify-center space-y-6 sm:w-[350px]">
           <div className="flex flex-col space-y-2 text-center">
             <Image
               className="mx-auto mb-2"
@@ -34,13 +42,13 @@ const page = () => {
               Please enter your email and password to <strong>Access</strong>{" "}
               your account.
             </p>
-
-            <UserAuthForm />
           </div>
+          <UserAuthForm />
         </div>
       </div>
+      <div className="hidden h-full bg-zinc-900 lg:block" />
     </div>
   );
 };
 
-export default page;
+export default LoginPage;
