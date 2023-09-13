@@ -1,12 +1,9 @@
-import React from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/Tabs";
 import Overview from "./Overview";
 import Analytics from "./Analytics";
 import Reports from "./Reports";
 
-type Props = {};
-
-const DashboardAdmin = (props: Props) => {
+const DashboardAdmin = () => {
   return (
     <div className="flex-1 space-y-4 py-8 pt-6">
       <Tabs defaultValue="overview" className="space-y-4">
