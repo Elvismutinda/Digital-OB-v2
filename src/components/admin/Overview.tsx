@@ -7,8 +7,22 @@ import {
 } from "@/components/ui/Card";
 import { Icons } from "@/components/Icons";
 import { AiOutlineFileDone, AiOutlineFileSearch } from "react-icons/ai";
+import { db } from "@/lib/db";
 
-const Overview = () => {
+const Overview = async () => {
+  const staffCount = await db.user.count()
+  const complaintsCount = await db.complainant.count()
+  const casesPendingCount = await db.case.count({
+    where: {
+      status: "Pending"
+    }
+  })
+  const casesClosedCount = await db.case.count({
+    where: {
+      status: "Closed"
+    }
+  })
+
   return (
     <>
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
@@ -18,7 +32,7 @@ const Overview = () => {
             <Icons.complaint className="w-4 h-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">147</div>
+            <div className="text-2xl font-bold">{staffCount}</div>
             <p className="text-xs text-muted-foreground">
               Test staff total card
             </p>
@@ -32,7 +46,7 @@ const Overview = () => {
             <Icons.case className="w-4 h-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">147</div>
+            <div className="text-2xl font-bold">{complaintsCount}</div>
             <p className="text-xs text-muted-foreground">
               Test complaints card
             </p>
@@ -44,7 +58,7 @@ const Overview = () => {
             <AiOutlineFileSearch className="w-4 h-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">147</div>
+            <div className="text-2xl font-bold">{casesPendingCount}</div>
             <p className="text-xs text-muted-foreground">
               Test cases pending card
             </p>
@@ -56,7 +70,7 @@ const Overview = () => {
             <AiOutlineFileDone className="w-4 h-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">147</div>
+            <div className="text-2xl font-bold">{casesClosedCount}</div>
             <p className="text-xs text-muted-foreground">
               Test cases closed card
             </p>
@@ -75,7 +89,7 @@ const Overview = () => {
             <CardTitle>Cases Pending for long</CardTitle>
             <CardDescription>Cases requiring priority</CardDescription>
           </CardHeader>
-          <CardContent>{/* TODO: Graph */}</CardContent>
+          <CardContent>{/* TODO: List long-pending cases */}</CardContent>
         </Card>
       </div>
     </>
