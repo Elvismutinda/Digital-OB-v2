@@ -47,7 +47,10 @@ const cols = [
     render: (record) => (
       <Space direction="horizontal">
         <Button icon={<EditOutlined />}></Button>
-        <Popconfirm title="Are you sure you want to delete this staff?" okText='Yes'>
+        <Popconfirm
+          title="Are you sure you want to delete this staff?"
+          okText="Yes"
+        >
           <Button icon={<DeleteOutlined />} />
         </Popconfirm>
       </Space>
@@ -55,8 +58,19 @@ const cols = [
   },
 ];
 
+interface StaffData {
+  staffId: string;
+  name: string;
+  rank: string;
+  email: string;
+  station: string;
+  role: string;
+  gender: string;
+  key: string;
+}
+
 const StaffDetails = () => {
-  const [data, setData] = React.useState([]);
+  const [data, setData] = React.useState<StaffData[]>([]);
   const [isLoading, setIsLoading] = React.useState(true);
 
   useEffect(() => {

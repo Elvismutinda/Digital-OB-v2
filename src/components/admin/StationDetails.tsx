@@ -33,7 +33,10 @@ const cols = [
     render: (record) => (
       <Space direction="horizontal">
         <Button icon={<EditOutlined />}></Button>
-        <Popconfirm title="Are you sure you want to delete this station?" okText='Yes'>
+        <Popconfirm
+          title="Are you sure you want to delete this station?"
+          okText="Yes"
+        >
           <Button icon={<DeleteOutlined />} />
         </Popconfirm>
       </Space>
@@ -41,8 +44,16 @@ const cols = [
   },
 ];
 
+interface StationData {
+  name: string;
+  county: string;
+  sub_county: string;
+  contact: string;
+  key: string;
+}
+
 const StationDetails = () => {
-  const [data, setData] = React.useState([]);
+  const [data, setData] = React.useState<StationData[]>([]);
   const [isLoading, setIsLoading] = React.useState(true);
 
   useEffect(() => {
