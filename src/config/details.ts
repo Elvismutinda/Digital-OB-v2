@@ -10,10 +10,10 @@ export const detailsConfig: DetailsConfig = {
       title: "Credentials",
       href: "/#credentials",
     },
-    {
-      title: "Features",
-      href: "/#features",
-    },
+    // {
+    //   title: "Features",
+    //   href: "/#features",
+    // },
     {
       title: "Documentation",
       href: "/docs",
