@@ -13,9 +13,9 @@ const AdminLayout = async ({ children }: { children: React.ReactNode }) => {
     redirect(authOptions?.pages?.signIn || "/login");
   }
 
-  // if (session?.user?.role !== "Admin") {
-  //   redirect(authOptions?.pages?.signIn || "/login")
-  // }
+  if (session?.user?.role !== "Admin") {
+    redirect(authOptions?.pages?.signIn || "/login")
+  }
 
   return (
     <div className="flex min-h-screen flex-col space-y-6">
