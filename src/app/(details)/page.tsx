@@ -2,7 +2,7 @@ import { buttonVariants } from "@/components/ui/Button";
 import { siteConfig } from "@/config/site";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
-import { IoIosCreate } from "react-icons/io";
+// import { IoIosCreate } from "react-icons/io";
 
 const IndexPage = () => {
   return (
@@ -20,7 +20,7 @@ const IndexPage = () => {
             Welcome to the 2nd version of the Digital O.B.
           </h1>
           <p className="mx-w-[42rem] leading-normal text-muted-foreground sm:text-xl sm:leading-8">
-            Below are a few details pertaining the project. You can go ahead and
+            Kindly view the project documentation{" "}<Link href='/docs' className="text-black underline underline-offset-4">here</Link>. You can go ahead and
             login to the system using the login button below. Credentials are
             provided below.
           </p>
@@ -51,7 +51,7 @@ const IndexPage = () => {
         </div>
         <div className="flex items-center"></div>
       </section>
-      <section
+      {/* <section
         id="features"
         className="container space-y-6 bg-slate-50 py-8 bg-transparent md:py-12 lg:py-24"
       >
@@ -149,7 +149,7 @@ const IndexPage = () => {
             </div>
           </div>
         </div>
-      </section>
+      </section> */}
     </>
   );
 };
