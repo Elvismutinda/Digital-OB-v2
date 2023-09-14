@@ -74,6 +74,7 @@ const StationDetails = () => {
       }))
     );
   };
+  
   return (
     <div className="max-w-full">
       <div>
