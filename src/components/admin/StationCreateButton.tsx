@@ -114,7 +114,7 @@ const StationCreateButton = ({
           <Form.Item
             label="Name"
             name="name"
-            rules={[{ required: true, message: "Please input Station Name" }]}
+            rules={[{ required: true, message: "Please input station name" }]}
           >
             <Input
               name="name"
@@ -127,7 +127,7 @@ const StationCreateButton = ({
           <Form.Item
             label="County"
             name="county"
-            rules={[{ required: true, message: "Please input county" }]}
+            rules={[{ required: true, message: "Please input County" }]}
           >
             <Select
               size="large"
@@ -167,7 +167,7 @@ const StationCreateButton = ({
           <Form.Item
             label="Contact"
             name="contact"
-            rules={[{ required: true, message: "Please input Contact" }]}
+            rules={[{ required: true, message: "Please input contact" }]}
           >
             <Input
               name="contact"
