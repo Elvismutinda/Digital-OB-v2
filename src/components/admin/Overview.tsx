@@ -80,7 +80,7 @@ const Overview = async () => {
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-7">
         <Card className="col-span-4">
           <CardHeader>
-            <CardTitle>Case Analytics Reports</CardTitle>
+            <CardTitle>Cases Flow</CardTitle>
           </CardHeader>
           <CardContent>{/* TODO: Graph */}</CardContent>
         </Card>
