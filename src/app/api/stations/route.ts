@@ -1,12 +1,19 @@
+import { getAuthSession } from "@/lib/auth";
 import { db } from "@/lib/db";
-import { registerStationSchema } from "@/lib/validations/station";
+import { stationSchema } from "@/lib/validations/station";
 import { z } from "zod";
 
 export async function POST(req: Request) {
   try {
+    const session = await getAuthSession();
+
+    if (session?.user.role !== "Admin") {
+      return new Response("Unauthorized", { status: 401 });
+    }
+
     const body = await req.json();
     const { name, county, sub_county, contact } =
-      registerStationSchema.parse(body);
+      stationSchema.parse(body);
 
     // check if station already exists
     const stationExists = await db.station.findFirst({
@@ -42,8 +49,15 @@ export async function POST(req: Request) {
 
 export async function GET() {
   try {
+    const session = await getAuthSession();
+
+    if (session?.user.role !== "Admin") {
+      return new Response("Unauthorized", { status: 401 });
+    }
+
     const stations = await db.station.findMany({
       select: {
+        id: true,
         name: true,
         county: true,
         sub_county: true,
