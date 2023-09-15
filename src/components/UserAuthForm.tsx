@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import * as React from "react";
 import { signIn } from "next-auth/react";
 
 import { Controller, useForm } from "react-hook-form";
@@ -11,7 +11,6 @@ import { useToast } from "@/hooks/use-toast";
 import { buttonVariants } from "./ui/Button";
 import { cn } from "@/lib/utils";
 import { LuLoader2 } from "react-icons/lu";
-// import { FaGoogle } from "react-icons/fa";
 
 const UserAuthForm = () => {
   const {
@@ -22,8 +21,7 @@ const UserAuthForm = () => {
     resolver: zodResolver(loginUserSchema),
   });
 
-  const [isLoading, setIsLoading] = useState<boolean>(false);
-  // const [isGoogleLoading, setIsGoogleLoading] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = React.useState<boolean>(false);
   const { toast } = useToast();
 
   async function onSubmit(data: loginUserForm) {
@@ -104,32 +102,6 @@ const UserAuthForm = () => {
           Login
         </button>
       </form>
-      {/* <div className="relative">
-        <div className="absolute inset-0 flex items-center">
-          <span className="w-full border-t" />
-        </div>
-        <div className="relative flex justify-center text-xs uppercase">
-          <span className="bg-background px-2 text-muted-foreground">
-            Or continue with
-          </span>
-        </div>
-      </div>
-      <button
-        type="button"
-        className={cn(buttonVariants({ variant: "outline" }))}
-        onClick={() => {
-          setIsGoogleLoading(true);
-          signIn("google");
-        }}
-        disabled={isLoading || isGoogleLoading}
-      >
-        {isGoogleLoading ? (
-          <LuLoader2 className="mr-2 h-4 w-4 animate-spin" />
-        ) : (
-          <FaGoogle className="mr-2 h-4 w-4" />
-        )}{" "}
-        Google
-      </button> */}
     </div>
   );
 };
