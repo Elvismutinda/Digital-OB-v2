@@ -1,6 +1,6 @@
 import * as z from "zod";
 
-export const registerStationSchema = z.object({
+export const stationSchema = z.object({
   name: z
     .string({ required_error: "Station name is required" })
     .min(1, "Station name is required"),
@@ -11,3 +11,5 @@ export const registerStationSchema = z.object({
     .min(1, "Contact is required")
     .max(13, "Enter a valid phone number"),
 });
+
+export type updateStationForm = z.infer<typeof stationSchema>;
