@@ -15,13 +15,13 @@ const { Option } = Select;
 
 interface StaffCreateButtonProps extends ButtonProps {}
 
-const StaffCreateButton = async ({
+const StaffCreateButton = ({
   className,
   variant,
   ...props
 }: StaffCreateButtonProps) => {
   const [openModal, setOpenModal] = React.useState<boolean>(false);
-
+  const [stationNames, setStationNames] = React.useState([]);
   const [formData, setFormData] = React.useState({
     name: "",
     email: "",
@@ -32,6 +32,19 @@ const StaffCreateButton = async ({
     gender: "",
     station: "",
   });
+
+  React.useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get("/api/station");
+        setStationNames(response.data);
+      } catch (error) {
+        console.error("Error fetching stations:", error);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   const router = useRouter();
 
@@ -83,10 +96,26 @@ const StaffCreateButton = async ({
     }));
   };
 
+  const resetForm = () => {
+    setFormData({
+      name: "",
+      email: "",
+      password: "",
+      staffId: "",
+      rank: "",
+      role: "",
+      gender: "",
+      station: "",
+    });
+  };
+
   return (
     <div>
       <button
-        onClick={() => setOpenModal(true)}
+        onClick={() => {
+          setOpenModal(true);
+          resetForm();
+        }}
         className={cn(
           buttonVariants({ variant }),
           {
@@ -102,9 +131,13 @@ const StaffCreateButton = async ({
       <Modal
         title="Register Staff"
         open={openModal}
-        onCancel={() => setOpenModal(false)}
+        onCancel={() => {
+          setOpenModal(false);
+          resetForm();
+        }}
         onOk={() => createUser()}
         okText="Register Staff"
+        afterClose={() => resetForm()}
       >
         <Form layout="vertical">
           <Form.Item
@@ -219,9 +252,9 @@ const StaffCreateButton = async ({
               value={formData.station}
               onChange={(value) => setFormData({ ...formData, station: value })}
             >
-              {ranksData.map((station) => (
-                <Option key={station.id} value={station.name}>
-                  {station.name}
+              {stationNames.map((stationName) => (
+                <Option key={stationName} value={stationName}>
+                  {stationName}
                 </Option>
               ))}
             </Select>
