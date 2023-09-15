@@ -2,8 +2,7 @@ import { db } from "@/lib/db";
 import { registerUserSchema } from "@/lib/validations/user";
 import { z } from "zod";
 import bcrypt from "bcrypt";
-import { getServerSession } from "next-auth";
-import { authOptions, getAuthSession } from "@/lib/auth";
+import { getAuthSession } from "@/lib/auth";
 
 export async function POST(req: Request) {
   try {
@@ -34,7 +33,18 @@ export async function POST(req: Request) {
       return new Response("User already exists", { status: 409 });
     }
 
-    // create user
+    // check if station exists
+    const stationExists = await db.station.findFirst({
+      where: {
+        name: station,
+      },
+    });
+
+    if (!stationExists) {
+      return new Response("Station does not exist", { status: 404 });
+    }
+
+    // create user and associate with station
 
     const hashedPassword = await bcrypt.hash(password, 10);
 
@@ -47,7 +57,7 @@ export async function POST(req: Request) {
         rank,
         role,
         gender,
-        station,
+        stationId: stationExists.id,
       },
     });
 
@@ -63,7 +73,7 @@ export async function POST(req: Request) {
 
 export async function GET() {
   try {
-    const session = await getServerSession(authOptions);
+    const session = await getAuthSession();
 
     if (session?.user.role !== "Admin") {
       return new Response("Unauthorized", { status: 401 });
@@ -71,17 +81,33 @@ export async function GET() {
 
     const users = await db.user.findMany({
       select: {
+        id: true,
         name: true,
         email: true,
         staffId: true,
         rank: true,
         role: true,
         gender: true,
-        station: true,
+        station: {
+          select: {
+            name: true,
+          },
+        },
       },
     });
 
-    return new Response(JSON.stringify(users), { status: 200 });
+    const usersWithStation = users.map((user) => ({
+      id: user.id,
+      name: user.name,
+      email: user.email,
+      staffId: user.staffId,
+      rank: user.rank,
+      role: user.role,
+      gender: user.gender,
+      station: user.station?.name || "No station",
+    }));
+
+    return new Response(JSON.stringify(usersWithStation), { status: 200 });
   } catch (error) {
     return new Response("Could not fetch users", { status: 500 });
   }
