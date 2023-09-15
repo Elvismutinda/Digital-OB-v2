@@ -10,25 +10,27 @@ import { AiOutlineFileDone, AiOutlineFileSearch } from "react-icons/ai";
 import { db } from "@/lib/db";
 
 const Overview = async () => {
-  const staffCount = await db.user.count()
-  const complaintsCount = await db.complainant.count()
+  const staffCount = await db.user.count();
+  const stationsCount = await db.station.count();
   const casesPendingCount = await db.case.count({
     where: {
-      status: "Pending"
-    }
-  })
+      status: "Pending",
+    },
+  });
   const casesClosedCount = await db.case.count({
     where: {
-      status: "Closed"
-    }
-  })
+      status: "Closed",
+    },
+  });
 
   return (
     <>
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Total Staff</CardTitle>
+            <CardTitle className="text-sm font-medium">
+              Total Staff Members
+            </CardTitle>
             <Icons.complaint className="w-4 h-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
@@ -41,12 +43,12 @@ const Overview = async () => {
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">
-              Total Complaints
+              Total Stations Country-wide
             </CardTitle>
             <Icons.case className="w-4 h-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">{complaintsCount}</div>
+            <div className="text-2xl font-bold">{stationsCount}</div>
             <p className="text-xs text-muted-foreground">
               Test complaints card
             </p>
