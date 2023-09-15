@@ -4,14 +4,7 @@ import * as React from "react";
 
 import axios from "axios";
 import { toast } from "@/hooks/use-toast";
-import {
-  Button,
-  Form,
-  Input,
-  Popconfirm,
-  Space,
-  Table,
-} from "antd";
+import { Button, Form, Input, Popconfirm, Space, Table } from "antd";
 import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
 
 interface StationData {
@@ -95,7 +88,7 @@ const StationDetails: React.FC = () => {
           setData(newData);
           setEditingKey("");
         }
-        
+
         toast({
           title: "Success",
           description: "Station updated successfully",
