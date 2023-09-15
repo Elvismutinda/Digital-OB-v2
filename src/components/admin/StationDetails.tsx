@@ -23,7 +23,9 @@ const EditableCell: React.FC<{
   record: StationData;
   children: React.ReactNode;
 }> = ({ editing, dataIndex, inputType, record, children }) => {
-  const inputNode = inputType === "text" && <Input />;
+  const inputNode = inputType === "text" && (
+    <Input disabled={dataIndex === "county" || dataIndex === "sub_county"} />
+  );
 
   return (
     <td>
