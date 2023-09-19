@@ -48,6 +48,20 @@ export const updateUserSchema = z
     message: "Passwords do not match",
   });
 
+  export const userDetailsSchema = z.object({
+    name: z
+      .string({ required_error: "Name is required" })
+      .min(1, "Full name is required"),
+    email: z
+      .string({ required_error: "Email is required" })
+      .min(1, "Email is required")
+      .email("Invalid email address"),
+    rank: z.string({ required_error: "Rank is required" }),
+    role: z.string({ required_error: "Role is required" }),
+    gender: z.string({ required_error: "Gender is required" }),
+  });
+
 export type registerUserForm = z.infer<typeof registerUserSchema>;
 export type loginUserForm = z.infer<typeof loginUserSchema>;
 export type updateUserForm = z.infer<typeof updateUserSchema>;
+export type userDetailsForm = z.infer<typeof userDetailsSchema>;
