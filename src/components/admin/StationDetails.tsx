@@ -86,7 +86,7 @@ const StationDetails: React.FC = () => {
         const newData = [...data];
         const index = newData.findIndex((item) => key === item.key);
         if (index > -1) {
-          newData[index] = row;
+          newData[index] = { ...newData[index], ...row };
           setData(newData);
           setEditingKey("");
         }
@@ -122,13 +122,11 @@ const StationDetails: React.FC = () => {
       title: "County",
       dataIndex: "county",
       key: "county",
-      editable: true,
     },
     {
       title: "Sub-County",
       dataIndex: "sub_county",
       key: "sub_county",
-      editable: true,
     },
     {
       title: "Contact",
@@ -165,9 +163,7 @@ const StationDetails: React.FC = () => {
                   okText="Yes"
                   onConfirm={() => handleDelete(record.key)}
                 >
-                  <Button>
-                    <DeleteOutlined />
-                  </Button>
+                  <Button icon={<DeleteOutlined />} />
                 </Popconfirm>
               </Space>
             )}
