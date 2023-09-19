@@ -1,6 +1,6 @@
 import { getAuthSession } from "@/lib/auth";
 import { db } from "@/lib/db";
-import { stationSchema } from "@/lib/validations/station";
+import { updateStationSchema } from "@/lib/validations/station";
 import { z } from "zod";
 
 const routeContextSchema = z.object({
@@ -60,7 +60,7 @@ export async function PATCH(
     const { params } = routeContextSchema.parse(context);
 
     const json = await req.json();
-    const body = stationSchema.parse(json);
+    const body = updateStationSchema.parse(json);
 
     // Update the station
     await db.station.update({
@@ -69,8 +69,6 @@ export async function PATCH(
       },
       data: {
         name: body.name,
-        county: body.county,
-        sub_county: body.sub_county,
         contact: body.contact,
       },
     });
