@@ -12,4 +12,15 @@ export const stationSchema = z.object({
     .max(13, "Enter a valid phone number"),
 });
 
-export type updateStationForm = z.infer<typeof stationSchema>;
+export const updateStationSchema = z.object({
+  name: z
+    .string({ required_error: "Station name is required" })
+    .min(1, "Station name is required"),
+  contact: z
+    .string({ required_error: "Contact is required" })
+    .min(1, "Contact is required")
+    .max(13, "Enter a valid phone number"),
+});
+
+export type stationForm = z.infer<typeof stationSchema>;
+export type updateStationForm = z.infer<typeof updateStationSchema>;
