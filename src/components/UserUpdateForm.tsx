@@ -1,13 +1,12 @@
 "use client";
 
-import { toast } from "@/hooks/use-toast";
+import { signOut } from "next-auth/react";
 import { updateUserForm } from "@/lib/validations/user";
 import { useMutation } from "@tanstack/react-query";
 import { Form, Input, message } from "antd";
 import axios, { AxiosError } from "axios";
 import { LuLoader2 } from "react-icons/lu";
 import { Button } from "./ui/Button";
-import { signOut } from "next-auth/react";
 
 const UserUpdateForm = () => {
   const { mutate: updateUserPass, isLoading } = useMutation({
@@ -28,36 +27,18 @@ const UserUpdateForm = () => {
     onError: (err) => {
       if (err instanceof AxiosError) {
         if (err.response?.status === 409) {
-          return toast({
-            title: "Incorrect password.",
-            description: "Kindly input your current correct password.",
-            variant: "destructive",
-          });
+          message.warning("Current password is incorrect.");
         } else if (err.response?.status === 422) {
-          return toast({
-            title: "Invalid inputs.",
-            description:
-              "Ensure your new password and confirm new password match.",
-            variant: "destructive",
-          });
+          message.warning("New password and confirm password must match.");
         }
       }
 
-      return toast({
-        title: "An error occurred.",
-        description: "Could not update your password. Try again later.",
-        variant: "destructive",
-      });
+      message.error("An error occurred. Try again later.");
     },
     onSuccess: () => {
       signOut({ callbackUrl: `${window.location.origin}/login` });
 
       message.success("Kindly login with your new password.");
-
-      // toast({
-      //   title: "Success",
-      //   description: "Kindly login with your new password.",
-      // });
     },
   });
 
