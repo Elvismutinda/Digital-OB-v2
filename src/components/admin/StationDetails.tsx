@@ -3,8 +3,7 @@
 import * as React from "react";
 
 import axios from "axios";
-import { toast } from "@/hooks/use-toast";
-import { Button, Form, Input, Popconfirm, Space, Table } from "antd";
+import { Button, Form, Input, Popconfirm, Space, Table, message } from "antd";
 import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
 
 interface StationData {
@@ -91,16 +90,9 @@ const StationDetails: React.FC = () => {
           setEditingKey("");
         }
 
-        toast({
-          title: "Success",
-          description: "Station updated successfully",
-        });
+        message.success("Station updated successfully.");
       } else {
-        toast({
-          title: "Error",
-          description: "Something went wrong. Try again later.",
-          variant: "destructive",
-        });
+        message.error("Something went wrong. Try again later.");
       }
     } catch (errInfo) {
       console.log("Validate Failed:", errInfo);
@@ -195,28 +187,13 @@ const StationDetails: React.FC = () => {
     const res = await axios.delete(`/api/stations/${stationId}`);
 
     if (res.status === 404) {
-      toast({
-        title: "Error",
-        description: "Station not found",
-        variant: "destructive",
-      });
-    }
-
-    if (res.status === 200) {
-      toast({
-        title: "Success",
-        description: "Station deleted successfully",
-      });
+      message.error("Station not found.");
+    } else if (res.status === 200) {
+      message.success("Station deleted successfully.");
 
       getData();
-    }
-
-    if (res.status === 500) {
-      toast({
-        title: "Error",
-        description: "Something went wrong. Try again later.",
-        variant: "destructive",
-      });
+    } else if (res.status === 500) {
+      message.error("Something went wrong. Try again later.");
     }
   }
 

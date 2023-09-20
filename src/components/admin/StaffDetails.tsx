@@ -3,8 +3,7 @@
 import * as React from "react";
 
 import axios from "axios";
-import { toast } from "@/hooks/use-toast";
-import { Button, Form, Input, Popconfirm, Space, Table } from "antd";
+import { Button, Form, Input, Popconfirm, Space, Table, message } from "antd";
 import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
 
 interface StaffData {
@@ -97,16 +96,9 @@ const StaffDetails: React.FC = () => {
           setEditingKey("");
         }
 
-        toast({
-          title: "Success",
-          description: "Staff updated successfully",
-        });
+        message.success("Staff updated successfully.");
       } else {
-        toast({
-          title: "Error",
-          description: "Something went wrong. Try again later.",
-          variant: "destructive",
-        });
+        message.error("Something went wrong. Try again later!");
       }
     } catch (errInfo) {
       console.log("Validate Failed:", errInfo);
@@ -217,28 +209,13 @@ const StaffDetails: React.FC = () => {
     const res = await axios.delete(`/api/users/${userId}`);
 
     if (res.status === 404) {
-      toast({
-        title: "Error",
-        description: "Staff not found",
-        variant: "destructive",
-      });
-    }
-
-    if (res.status === 200) {
-      toast({
-        title: "Success",
-        description: "Staff deleted successfully",
-      });
+      message.error("Staff not found.");
+    } else if (res.status === 200) {
+      message.success("Staff deleted successfully.");
 
       getData();
-    }
-
-    if (res.status === 500) {
-      toast({
-        title: "Error",
-        description: "Something went wrong. Try again later!",
-        variant: "destructive",
-      });
+    } else if (res.status === 500) {
+      message.error("Something went wrong. Try again later.");
     }
   }
 

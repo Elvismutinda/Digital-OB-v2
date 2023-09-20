@@ -7,8 +7,7 @@ import { cn } from "@/lib/utils";
 import { HiOutlinePlusSm } from "react-icons/hi";
 import { useMutation } from "@tanstack/react-query";
 import axios, { AxiosError } from "axios";
-import { toast } from "@/hooks/use-toast";
-import { Form, Input, Modal, Select } from "antd";
+import { Form, Input, Modal, Select, message } from "antd";
 import { countiesData } from "@/config/counties";
 
 const { Option } = Select;
@@ -39,31 +38,16 @@ const StationCreateButton = ({
     onError: (err) => {
       if (err instanceof AxiosError) {
         if (err.response?.status === 409) {
-          return toast({
-            title: "Station already exists.",
-            description: "Please register a new station.",
-            variant: "destructive",
-          });
+          message.warning("Station already exists.");
         } else if (err.response?.status === 422) {
-          return toast({
-            title: "Invalid input.",
-            description: "Please check your inputs and try again.",
-            variant: "destructive",
-          });
+          message.error("Invalid inputs provided.");
         }
       } else {
-        return toast({
-          title: "An error occurred.",
-          description: "Could not register station.",
-          variant: "destructive",
-        });
+        message.error("An error occurred. Try again later.");
       }
     },
     onSuccess: (data) => {
-      toast({
-        title: "Success.",
-        description: `${data} has been registered successfully.`,
-      });
+      message.success("Station created successfully.");
 
       setOpenModal(false);
 

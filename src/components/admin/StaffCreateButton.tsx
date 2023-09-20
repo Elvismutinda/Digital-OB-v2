@@ -5,8 +5,7 @@ import { ButtonProps, buttonVariants } from "@/components/ui/Button";
 import { useRouter } from "next/navigation";
 import { cn } from "@/lib/utils";
 import { HiOutlinePlusSm } from "react-icons/hi";
-import { Form, Input, Modal, Radio, Select } from "antd";
-import { toast } from "@/hooks/use-toast";
+import { Form, Input, Modal, Radio, Select, message } from "antd";
 import { useMutation } from "@tanstack/react-query";
 import axios, { AxiosError } from "axios";
 import { ranksData } from "@/config/rank";
@@ -56,31 +55,16 @@ const StaffCreateButton = ({
     onError: (err) => {
       if (err instanceof AxiosError) {
         if (err.response?.status === 409) {
-          return toast({
-            title: "User already exists.",
-            description: "Please use a different email or staff ID.",
-            variant: "destructive",
-          });
+          message.warning("User already exists.");
         } else if (err.response?.status === 422) {
-          return toast({
-            title: "Invalid input.",
-            description: "Please check your inputs and try again.",
-            variant: "destructive",
-          });
+          message.error("Invalid inputs provided.")
         }
       } else {
-        return toast({
-          title: "An error occurred.",
-          description: "Could not register staff.",
-          variant: "destructive",
-        });
+        message.error("An error occurred. Try again later.");
       }
     },
     onSuccess: (data) => {
-      toast({
-        title: "Success.",
-        description: `${data} has been registered successfully.`,
-      });
+      message.success("User created successfully.");
 
       setOpenModal(false);
 
