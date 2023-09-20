@@ -32,7 +32,7 @@ const EditableCell: React.FC<{
       {editing ? (
         <Form.Item
           name={dataIndex}
-          className="m-0"
+          className="m-0 w-fit"
           initialValue={record[dataIndex]}
         >
           {inputNode}
