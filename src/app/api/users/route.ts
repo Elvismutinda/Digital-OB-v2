@@ -1,5 +1,5 @@
 import { db } from "@/lib/db";
-import { registerUserSchema } from "@/lib/validations/user";
+import { registerUserSchema, updateUserSchema } from "@/lib/validations/user";
 import { z } from "zod";
 import bcrypt from "bcrypt";
 import { getAuthSession } from "@/lib/auth";
@@ -110,5 +110,57 @@ export async function GET() {
     return new Response(JSON.stringify(usersWithStation), { status: 200 });
   } catch (error) {
     return new Response("Could not fetch users", { status: 500 });
+  }
+}
+
+export async function PATCH(req: Request) {
+  try {
+    const session = await getAuthSession();
+
+    if (!session?.user) {
+      return new Response("Unauthorized", { status: 401 });
+    }
+
+    const body = await req.json();
+    const { password, newPassword, confirmNewPassword } =
+      updateUserSchema.parse(body);
+
+    // Check if user exists
+    const user = await db.user.findFirst({
+      where: {
+        email: session.user.email,
+      },
+    });
+
+    if (!user) {
+      return new Response("User not found", { status: 404 });
+    }
+
+    // Check if password matches
+    const passwordMatch = await bcrypt.compare(password, user.hashedPassword);
+
+    if (!passwordMatch) {
+      return new Response("Incorrect password", { status: 409 });
+    }
+
+    // Update password
+    const hashedPassword = await bcrypt.hash(newPassword, 10);
+
+    await db.user.update({
+      where: {
+        id: session.user.id,
+      },
+      data: {
+        hashedPassword,
+      },
+    });
+
+    return new Response("Password updated", { status: 200 });
+  } catch (error) {
+    if (error instanceof z.ZodError) {
+      return new Response("Invalid PATCH request data passed", { status: 422 });
+    }
+
+    return new Response("Could not update password", { status: 500 });
   }
 }
