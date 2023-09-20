@@ -3,8 +3,7 @@
 import * as React from "react";
 
 import { cn } from "@/lib/utils";
-import { toast } from "@/hooks/use-toast";
-import { Input } from "antd";
+import { Input, message } from "antd";
 
 interface DocsSearchProps extends React.HTMLAttributes<HTMLFormElement> {}
 
@@ -12,11 +11,7 @@ export function DocsSearch({ className, ...props }: DocsSearchProps) {
   function onSubmit(event: React.SyntheticEvent) {
     event.preventDefault();
 
-    return toast({
-      title: "Not implemented",
-      description: "We're still working on the search.",
-      variant: "destructive",
-    });
+    message.warning("Search functionality coming soon.");
   }
 
   return (
