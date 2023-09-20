@@ -3,7 +3,7 @@
 import { toast } from "@/hooks/use-toast";
 import { updateUserForm } from "@/lib/validations/user";
 import { useMutation } from "@tanstack/react-query";
-import { Form, Input } from "antd";
+import { Form, Input, message } from "antd";
 import axios, { AxiosError } from "axios";
 import { LuLoader2 } from "react-icons/lu";
 import { Button } from "./ui/Button";
@@ -33,6 +33,13 @@ const UserUpdateForm = () => {
             description: "Kindly input your current correct password.",
             variant: "destructive",
           });
+        } else if (err.response?.status === 422) {
+          return toast({
+            title: "Invalid inputs.",
+            description:
+              "Ensure your new password and confirm new password match.",
+            variant: "destructive",
+          });
         }
       }
 
@@ -45,10 +52,12 @@ const UserUpdateForm = () => {
     onSuccess: () => {
       signOut({ callbackUrl: `${window.location.origin}/login` });
 
-      toast({
-        title: "Success",
-        description: "Kindly login with your new password.",
-      });
+      message.success("Kindly login with your new password.");
+
+      // toast({
+      //   title: "Success",
+      //   description: "Kindly login with your new password.",
+      // });
     },
   });
 
