@@ -39,20 +39,20 @@ const StationCreateButton = ({
     onError: (err) => {
       if (err instanceof AxiosError) {
         if (err.response?.status === 409) {
-          toast({
+          return toast({
             title: "Station already exists.",
             description: "Please register a new station.",
             variant: "destructive",
           });
         } else if (err.response?.status === 422) {
-          toast({
+          return toast({
             title: "Invalid input.",
             description: "Please check your inputs and try again.",
             variant: "destructive",
           });
         }
       } else {
-        toast({
+        return toast({
           title: "An error occurred.",
           description: "Could not register station.",
           variant: "destructive",
