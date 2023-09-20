@@ -27,9 +27,9 @@ const UserUpdateForm = () => {
     onError: (err) => {
       if (err instanceof AxiosError) {
         if (err.response?.status === 409) {
-          message.warning("Current password is incorrect.");
+          message.error("Current password is incorrect.");
         } else if (err.response?.status === 422) {
-          message.warning("New password and confirm password must match.");
+          message.error("New password and confirm password must match.");
         }
       }
 
