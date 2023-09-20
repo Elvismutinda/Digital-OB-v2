@@ -13,7 +13,7 @@ const CardSkeleton = () => {
         <Skeleton className="h-5 w-1/5" />
         <Skeleton className="h-4 w-4/5" />
       </CardHeader>
-      <CardContent className="h-10" />
+      <CardContent className="h-40" />
       <CardFooter>
         <Skeleton className="h-8 w-[120px]" />
       </CardFooter>
