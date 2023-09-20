@@ -6,8 +6,7 @@ import { signIn } from "next-auth/react";
 import { Controller, useForm } from "react-hook-form";
 import { loginUserForm, loginUserSchema } from "@/lib/validations/user";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Input } from "antd";
-import { useToast } from "@/hooks/use-toast";
+import { Input, message } from "antd";
 import { buttonVariants } from "./ui/Button";
 import { cn } from "@/lib/utils";
 import { LuLoader2 } from "react-icons/lu";
@@ -22,7 +21,6 @@ const UserAuthForm = () => {
   });
 
   const [isLoading, setIsLoading] = React.useState<boolean>(false);
-  const { toast } = useToast();
 
   async function onSubmit(data: loginUserForm) {
     setIsLoading(true);
@@ -38,17 +36,10 @@ const UserAuthForm = () => {
     setIsLoading(false);
 
     if (!signInResult?.ok) {
-      return toast({
-        title: "Something went wrong.",
-        description: "Your sign in request failed. Please try again later.",
-        variant: "destructive",
-      });
+      message.error("Sign in request failed. Try again later.");
     }
 
-    return toast({
-      title: "Success",
-      description: "You have successfully logged in.",
-    });
+    message.success("Login successful.");
   }
 
   return (
