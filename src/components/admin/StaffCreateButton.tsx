@@ -55,7 +55,7 @@ const StaffCreateButton = ({
     onError: (err) => {
       if (err instanceof AxiosError) {
         if (err.response?.status === 409) {
-          message.warning("User already exists.");
+          message.error("User already exists.");
         } else if (err.response?.status === 422) {
           message.error("Invalid inputs provided.")
         }

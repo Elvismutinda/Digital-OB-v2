@@ -38,7 +38,7 @@ const StationCreateButton = ({
     onError: (err) => {
       if (err instanceof AxiosError) {
         if (err.response?.status === 409) {
-          message.warning("Station already exists.");
+          message.error("Station already exists.");
         } else if (err.response?.status === 422) {
           message.error("Invalid inputs provided.");
         }
