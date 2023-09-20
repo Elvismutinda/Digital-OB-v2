@@ -4,7 +4,6 @@ import "@/styles/globals.css";
 
 import { cn } from "@/lib/utils";
 import Providers from "@/components/Providers";
-import { Toaster } from "@/components/ui/Toaster";
 import { siteConfig } from "@/config/site";
 
 const fontSans = FontSans({
@@ -42,7 +41,6 @@ export default function RootLayout({
         <Providers>
           {children}
         </Providers>
-        <Toaster />
       </body>
     </html>
   );
