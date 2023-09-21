@@ -1,6 +1,5 @@
 import { redirect} from "next/navigation";
 
-
 import { authOptions, getAuthSession } from "@/lib/auth";
 import SiteShell from "@/components/SiteShell";
 import SiteHeader from "@/components/SiteHeader";

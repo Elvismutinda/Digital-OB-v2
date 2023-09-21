@@ -2,19 +2,15 @@ import { redirect } from "next/navigation";
 
 import AdminNav from "@/components/admin/AdminNav";
 import { adminConfig } from "@/config/admin";
-import { UserAccountNav } from "@/components/UserAccountNav";
+import { AdminAccountNav } from "@/components/admin/AdminAccountNav";
 import { authOptions } from "@/lib/auth";
 import { getServerSession } from "next-auth";
 
 const AdminLayout = async ({ children }: { children: React.ReactNode }) => {
   const session = await getServerSession(authOptions);
 
-  if (!session) {
-    redirect(authOptions?.pages?.signIn || "/login");
-  }
-
   if (session?.user?.role !== "Admin") {
-    redirect(authOptions?.pages?.signIn || "/login")
+    redirect(authOptions?.pages?.signIn || "/login");
   }
 
   return (
@@ -30,7 +26,7 @@ const AdminLayout = async ({ children }: { children: React.ReactNode }) => {
                 {session?.user.name} - {session?.user.role}
               </div>
               <div>
-                <UserAccountNav user={session.user} />
+                <AdminAccountNav user={session.user} />
               </div>
             </div>
           </header>

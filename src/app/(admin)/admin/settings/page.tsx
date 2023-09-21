@@ -1,7 +1,6 @@
 import SiteHeader from "@/components/SiteHeader";
 import SiteShell from "@/components/SiteShell";
 import UserUpdateForm from "@/components/UserUpdateForm";
-import { getAuthSession } from "@/lib/auth";
 
 export const metadata = {
   title: "Settings",
@@ -9,7 +8,6 @@ export const metadata = {
 };
 
 const SettingsPage = async () => {
-  const session = await getAuthSession()
   return (
     <SiteShell>
       <SiteHeader heading="Account" text="Update your account settings." />
