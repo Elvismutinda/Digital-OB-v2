@@ -1,6 +1,6 @@
 import SiteHeader from "@/components/SiteHeader";
 import SiteShell from "@/components/SiteShell";
-import ComplainantCreateButton from "@/components/police/ComplainantCreateButton";
+import CaseCreateButton from "@/components/police/CaseCreateButton";
 import ComplainantsDetails from "@/components/police/ComplainantsDetails";
 
 export const metadata = {
@@ -11,7 +11,7 @@ const ComplainantsPage = async () => {
   return (
     <SiteShell>
       <SiteHeader heading="Complainants">
-        <ComplainantCreateButton />
+        <CaseCreateButton />
       </SiteHeader>
       <ComplainantsDetails />
     </SiteShell>
