@@ -55,14 +55,14 @@ const UserUpdateForm = () => {
           { required: true, message: "Please input your current password!" },
         ]}
       >
-        <Input.Password className="max-w-[300px]" name="password" />
+        <Input.Password className="max-w-[500px]" name="password" />
       </Form.Item>
       <Form.Item
         label="New Password"
         name="newPassword"
         rules={[{ required: true, message: "Please input your new password!" }]}
       >
-        <Input.Password className="max-w-[300px]" name="newPassword" />
+        <Input.Password className="max-w-[500px]" name="newPassword" />
       </Form.Item>
       <Form.Item
         label="Confirm Password"
@@ -71,7 +71,7 @@ const UserUpdateForm = () => {
           { required: true, message: "Please confirm your new password!" },
         ]}
       >
-        <Input.Password className="max-w-[300px]" name="confirmNewPassword" />
+        <Input.Password className="max-w-[500px]" name="confirmNewPassword" />
       </Form.Item>
       <Form.Item>
         <Button type="submit" disabled={isLoading}>
