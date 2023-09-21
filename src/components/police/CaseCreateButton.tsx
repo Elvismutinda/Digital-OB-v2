@@ -3,11 +3,14 @@
 import { useState, useReducer } from "react";
 
 import axios from "axios";
-import { ButtonProps, buttonVariants } from "../ui/Button";
+import { Button, ButtonProps, buttonVariants } from "../ui/Button";
 import { cn } from "@/lib/utils";
-import { Form, Input, Select, Button, message, Modal, Radio } from "antd";
+import { Form, Input, Select, message, Modal, Radio } from "antd";
 import { crimeData } from "@/config/crimes";
 import { HiOutlinePlusSm } from "react-icons/hi";
+import { FiArrowLeft, FiArrowRight } from "react-icons/fi";
+import { FaPaperPlane } from "react-icons/fa";
+import { LuLoader2 } from "react-icons/lu";
 
 const { Option } = Select;
 const { TextArea } = Input;
@@ -88,6 +91,7 @@ const ComplainantDetailsPage = ({ formData, dispatch }) => {
         rules={[{ required: true, message: "Please input complainant name" }]}
       >
         <Input
+          size="large"
           name="name"
           autoComplete="off"
           value={formData.complainantData.name}
@@ -105,6 +109,7 @@ const ComplainantDetailsPage = ({ formData, dispatch }) => {
         rules={[{ required: true, message: "Please input contact" }]}
       >
         <Input
+          size="large"
           name="contact"
           addonBefore="+254"
           autoComplete="off"
@@ -123,6 +128,7 @@ const ComplainantDetailsPage = ({ formData, dispatch }) => {
         rules={[{ required: true, message: "Please input occupation" }]}
       >
         <Input
+          size="large"
           name="occupation"
           autoComplete="off"
           value={formData.complainantData.Occupation}
@@ -140,6 +146,7 @@ const ComplainantDetailsPage = ({ formData, dispatch }) => {
         rules={[{ required: true, message: "Please input age" }]}
       >
         <Input
+          size="large"
           name="age"
           type="number"
           autoComplete="off"
@@ -158,6 +165,7 @@ const ComplainantDetailsPage = ({ formData, dispatch }) => {
         rules={[{ required: true, message: "Please input address" }]}
       >
         <Input
+          size="large"
           name="address"
           autoComplete="off"
           value={formData.complainantData.address}
@@ -187,7 +195,8 @@ const ComplainantDetailsPage = ({ formData, dispatch }) => {
           <Radio value="Female">Female</Radio>
         </Radio.Group>
       </Form.Item>
-      <Button type="primary" onClick={handleNext}>
+      <Button onClick={handleNext}>
+        <FiArrowRight className="mr-2 h-4 w-4" />
         Next
       </Button>
     </Form>
@@ -195,11 +204,19 @@ const ComplainantDetailsPage = ({ formData, dispatch }) => {
 };
 
 const CaseDetailsPage = ({ formData, dispatch, submitForm }) => {
+  const [isSubmitting, setisSubmitting] = useState<boolean>(false);
+  
   const handlePrevious = () => {
     dispatch({ type: "previousPage" });
   };
 
+  const isSubmitDisabled =
+    !formData.caseData.ob_number ||
+    !formData.caseData.crime ||
+    !formData.caseData.statement;
+
   const handleSubmit = () => {
+    setisSubmitting(true);
     // console.log(formData.complainantData);
     // console.log(formData.caseData);
     axios
@@ -214,6 +231,7 @@ const CaseDetailsPage = ({ formData, dispatch, submitForm }) => {
           })
           .then(() => {
             message.success("Complaint submitted successfully.");
+            setisSubmitting(false);
             submitForm();
           });
       });
@@ -227,6 +245,7 @@ const CaseDetailsPage = ({ formData, dispatch, submitForm }) => {
         rules={[{ required: true, message: "OB Number is required!" }]}
       >
         <Input
+          size="large"
           name="ob_number"
           autoComplete="off"
           value={formData.caseData.ob_number}
@@ -244,6 +263,7 @@ const CaseDetailsPage = ({ formData, dispatch, submitForm }) => {
         rules={[{ required: true, message: "Please select crime!" }]}
       >
         <Select
+          size="large"
           placeholder="Select Crime"
           value={formData.caseData.crime}
           onChange={(value) =>
@@ -266,6 +286,7 @@ const CaseDetailsPage = ({ formData, dispatch, submitForm }) => {
         rules={[{ required: true, message: "Please input statement" }]}
       >
         <TextArea
+          size="large"
           name="statement"
           autoComplete="off"
           value={formData.caseData.statement}
@@ -276,10 +297,26 @@ const CaseDetailsPage = ({ formData, dispatch, submitForm }) => {
             })
           }
           autoSize
+          allowClear
         />
       </Form.Item>
-      <Button onClick={handlePrevious}>Previous</Button>
-      <Button type="primary" onClick={handleSubmit}>
+      <Button
+        className={cn(buttonVariants({ variant: "outline" }), "mr-2 mb-2")}
+        onClick={handlePrevious}
+        disabled={isSubmitting}
+      >
+        <FiArrowLeft className="mr-2 h-4 w-4" />
+        Previous
+      </Button>
+      <Button
+        onClick={handleSubmit}
+        disabled={isSubmitDisabled || isSubmitting}
+      >
+        {isSubmitting ? (
+          <LuLoader2 className="mr-2 h-4 w-4 animate-spin" />
+        ) : (
+          <FaPaperPlane className="mr-2 h-4 w-4" />
+        )}
         Submit
       </Button>
     </Form>
