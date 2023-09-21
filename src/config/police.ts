@@ -8,8 +8,8 @@ export const policeConfig: PoliceConfig = {
       icon: "dashboard",
     },
     {
-      title: "Complaints",
-      href: "/police/complaints",
+      title: "Complainants",
+      href: "/police/complainants",
       icon: "complaint",
     },
     {
