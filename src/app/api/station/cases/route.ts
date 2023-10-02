@@ -67,7 +67,21 @@ export async function GET() {
       return new Response("Unauthorized", { status: 401 });
     }
 
+    const user = await db.user.findFirst({
+      select: {
+        stationId: true,
+      },
+      where: {
+        id: session.user.id,
+      },
+    });
+
+    const stationId = user?.stationId ?? "";
+
     const cases = await db.case.findMany({
+      where: {
+        stationId,
+      },
       include: {
         complainant: {
           select: {
