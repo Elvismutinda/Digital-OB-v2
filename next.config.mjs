@@ -9,7 +9,6 @@ const nextConfig = {
     domains: ["www.lifloelectronics.co.ke"],
   },
   experimental: {
-    appDir: true,
     serverComponentsExternalPackages: ["@prisma/client"],
   },
 };
