@@ -33,17 +33,17 @@ const StaffCreateButton = ({
   });
 
   React.useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.get("/api/station");
-        setStationNames(response.data);
-      } catch (error) {
-        console.error("Error fetching stations:", error);
-      }
-    };
-
-    fetchData();
-  }, []);
+    if (openModal) {
+      axios
+        .get("/api/station")
+        .then((response) => {
+          setStationNames(response.data);
+        })
+        .catch((err) => {
+          console.log("Error fetching station names", err);
+        });
+    }
+  }, [openModal]);
 
   const router = useRouter();
 
@@ -57,7 +57,7 @@ const StaffCreateButton = ({
         if (err.response?.status === 409) {
           message.error("User already exists.");
         } else if (err.response?.status === 422) {
-          message.error("Invalid inputs provided.")
+          message.error("Invalid inputs provided.");
         }
       } else {
         message.error("An error occurred. Try again later.");
@@ -94,7 +94,7 @@ const StaffCreateButton = ({
   };
 
   return (
-    <div>
+    <>
       <button
         onClick={() => {
           setOpenModal(true);
@@ -245,7 +245,7 @@ const StaffCreateButton = ({
           </Form.Item>
         </Form>
       </Modal>
-    </div>
+    </>
   );
 };
 
