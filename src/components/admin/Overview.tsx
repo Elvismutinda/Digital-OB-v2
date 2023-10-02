@@ -8,6 +8,7 @@ import {
 import { Icons } from "@/components/Icons";
 import { AiOutlineFileDone, AiOutlineFileSearch } from "react-icons/ai";
 import { db } from "@/lib/db";
+import { formatDistanceToNow, differenceInDays } from "date-fns";
 
 const Overview = async () => {
   const staffCount = await db.user.count();
@@ -21,6 +22,27 @@ const Overview = async () => {
     where: {
       status: "Closed",
     },
+  });
+
+  const pendingCasesPeriod = await db.case.findMany({
+    where: {
+      status: "Pending",
+    },
+    include: {
+      station: true,
+    },
+    orderBy: {
+      dateAdded: "asc",
+    },
+  });
+
+  // Filter cases pending for more than 5 days
+  const longPendingCases = pendingCasesPeriod.filter((caseItem) => {
+    const daysSinceAdded = differenceInDays(
+      new Date(),
+      new Date(caseItem.dateAdded)
+    );
+    return daysSinceAdded > 5;
   });
 
   return (
@@ -91,7 +113,19 @@ const Overview = async () => {
             <CardTitle>Cases Pending for long</CardTitle>
             <CardDescription>Cases requiring priority</CardDescription>
           </CardHeader>
-          <CardContent>{/* TODO: List long-pending cases */}</CardContent>
+          <CardContent>
+            <ul className="list-disc pl-4">
+              {pendingCasesPeriod.map((caseItem) => (
+                <li key={caseItem.id} className="py-2 border-b border-gray-400">
+                  {caseItem.ob_number} - Reported{" "}
+                  {formatDistanceToNow(new Date(caseItem.dateAdded), {
+                    addSuffix: true,
+                  })}{" "}
+                  at {caseItem.station.name}
+                </li>
+              ))}
+            </ul>
+          </CardContent>
         </Card>
       </div>
     </>
