@@ -80,14 +80,7 @@ export async function GET() {
     }
 
     const users = await db.user.findMany({
-      select: {
-        id: true,
-        name: true,
-        email: true,
-        staffId: true,
-        rank: true,
-        role: true,
-        gender: true,
+      include: {
         station: {
           select: {
             name: true,
