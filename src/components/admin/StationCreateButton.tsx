@@ -32,7 +32,7 @@ const StationCreateButton = ({
 
   const { mutate: createStation, isLoading } = useMutation({
     mutationFn: async () => {
-      const { data } = await axios.post("/api/stations", formData);
+      const { data } = await axios.post("/api/station/create", formData);
       return data as string;
     },
     onError: (err) => {
@@ -72,7 +72,7 @@ const StationCreateButton = ({
   );
 
   return (
-    <div>
+    <>
       <button
         onClick={() => setOpenModal(true)}
         className={cn(
@@ -164,7 +164,7 @@ const StationCreateButton = ({
           </Form.Item>
         </Form>
       </Modal>
-    </div>
+    </>
   );
 };
 
