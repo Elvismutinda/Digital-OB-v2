@@ -170,15 +170,13 @@ const StaffDetails: React.FC = () => {
               </Space>
             ) : (
               <Space>
-                <Button onClick={() => edit(record)}>
-                  <EditOutlined />
-                </Button>
+                <Button icon={<EditOutlined />} onClick={() => edit(record)} />
                 <Popconfirm
                   title="Are you sure you want to delete this staff?"
                   okText="Yes"
                   onConfirm={() => handleDelete(record.key)}
                 >
-                  <Button icon={<DeleteOutlined />} />
+                  <Button icon={<DeleteOutlined />} type="primary" danger />
                 </Popconfirm>
               </Space>
             )}
