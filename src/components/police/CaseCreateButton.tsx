@@ -205,7 +205,7 @@ const ComplainantDetailsPage = ({ formData, dispatch }) => {
 
 const CaseDetailsPage = ({ formData, dispatch, submitForm }) => {
   const [isSubmitting, setisSubmitting] = useState<boolean>(false);
-  
+
   const handlePrevious = () => {
     dispatch({ type: "previousPage" });
   };
@@ -220,12 +220,12 @@ const CaseDetailsPage = ({ formData, dispatch, submitForm }) => {
     // console.log(formData.complainantData);
     // console.log(formData.caseData);
     axios
-      .post("/api/complainants", formData.complainantData)
+      .post("/api/station/complainants", formData.complainantData)
       .then((response) => {
         const complainantId = response.data;
 
         axios
-          .post("/api/cases", {
+          .post("/api/station/cases", {
             ...formData.caseData,
             complainantId: complainantId,
           })
