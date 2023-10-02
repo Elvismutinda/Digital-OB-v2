@@ -17,6 +17,9 @@ export async function GET() {
         sub_county: true,
         contact: true,
       },
+      orderBy: {
+        name: "asc",
+      },
     });
 
     return new Response(JSON.stringify(stations), { status: 200 });

@@ -99,6 +99,9 @@ export async function GET() {
           },
         },
       },
+      orderBy: {
+        dateAdded: "desc",
+      },
     });
 
     const caseDetails = cases.map((c) => ({

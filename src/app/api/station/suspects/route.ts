@@ -86,6 +86,9 @@ export async function GET() {
           },
         },
       },
+      orderBy: {
+        dateAdded: "desc",
+      },
     });
 
     const suspectsWithCase = suspects.map((s) => ({

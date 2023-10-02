@@ -87,6 +87,9 @@ export async function GET() {
           },
         },
       },
+      orderBy: {
+        staffId: "asc",
+      },
     });
 
     const usersWithStation = users.map((user) => ({

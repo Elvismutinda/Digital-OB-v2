@@ -56,6 +56,9 @@ export async function GET() {
         address: true,
         gender: true,
       },
+      orderBy: {
+        dateAdded: "desc",
+      },
     });
 
     return new Response(JSON.stringify(complainants), { status: 200 });
