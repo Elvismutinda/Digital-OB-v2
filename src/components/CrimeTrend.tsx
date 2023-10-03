@@ -23,6 +23,7 @@ const CrimeTrend = () => {
           message.error("Error fetching crime trend data");
         }
       } catch (error) {
+        message.error("Error fetching crime trend data");
         console.log("Error fetching crime trend data", error);
       }
     }
