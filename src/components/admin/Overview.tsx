@@ -9,6 +9,7 @@ import { Icons } from "@/components/Icons";
 import { AiOutlineFileDone, AiOutlineFileSearch } from "react-icons/ai";
 import { db } from "@/lib/db";
 import { formatDistanceToNow, differenceInDays } from "date-fns";
+import CrimeTrend from "@/components/CrimeTrend";
 
 const Overview = async () => {
   const staffCount = await db.user.count();
@@ -104,14 +105,16 @@ const Overview = async () => {
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-7">
         <Card className="col-span-4">
           <CardHeader>
-            <CardTitle>Cases Flow</CardTitle>
+            <CardTitle>Crime Trend</CardTitle>
           </CardHeader>
-          <CardContent>{/* TODO: Graph */}</CardContent>
+          <CardContent>
+            <CrimeTrend />
+          </CardContent>
         </Card>
         <Card className="col-span-3">
           <CardHeader>
             <CardTitle>Cases Pending for long</CardTitle>
-            <CardDescription>Cases requiring priority</CardDescription>
+            <CardDescription>Require priority</CardDescription>
           </CardHeader>
           <CardContent>
             <ul className="list-disc pl-4">
