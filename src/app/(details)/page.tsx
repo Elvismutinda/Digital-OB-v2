@@ -1,7 +1,14 @@
+import Link from "next/link";
+
 import { buttonVariants } from "@/components/ui/Button";
 import { siteConfig } from "@/config/site";
 import { cn } from "@/lib/utils";
-import Link from "next/link";
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/Card";
 // import { IoIosCreate } from "react-icons/io";
 
 const IndexPage = () => {
@@ -48,6 +55,56 @@ const IndexPage = () => {
             Use the following credentials to login to the system with different
             roles. Every role has it's own permissions.
           </p>
+          <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+        <Card>
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+            <CardTitle className="text-xl font-medium">
+              admin@ob.com
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="text-xl font-bold">12345678</div>
+            <p className="text-xs text-muted-foreground">
+              (password)
+            </p>
+          </CardContent>
+        </Card>
+        <Card>
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+            <CardTitle className="text-xl font-medium">
+              incharge@ob.com
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="text-xl font-bold">12345678</div>
+            <p className="text-xs text-muted-foreground">
+              (password)
+            </p>
+          </CardContent>
+        </Card>
+        <Card>
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+            <CardTitle className="text-xl font-medium">police@ob.com</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="text-xl font-bold">12345678</div>
+            <p className="text-xs text-muted-foreground">
+              (password)
+            </p>
+          </CardContent>
+        </Card>
+        <Card>
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+            <CardTitle className="text-xl font-medium">detective@ob.com</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="text-xl font-bold">12345678</div>
+            <p className="text-xs text-muted-foreground">
+              (password)
+            </p>
+          </CardContent>
+        </Card>
+      </div>
         </div>
         <div className="flex items-center"></div>
       </section>
