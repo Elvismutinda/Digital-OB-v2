@@ -10,6 +10,10 @@ const nextConfig = {
   },
   experimental: {
     serverComponentsExternalPackages: ["@prisma/client"],
+    logging: {
+      level: "verbose",
+      fullUrl: true,
+    },
   },
 };
 
