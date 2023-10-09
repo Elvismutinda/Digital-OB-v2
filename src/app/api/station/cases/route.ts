@@ -112,7 +112,7 @@ export async function GET() {
       statement: c.statement,
       dateAdded: c.dateAdded,
       dateClosed: c.dateClosed || "------",
-      complainant: c.complainant?.name || "No complainant",
+      complainant: c.complainant?.name || "Unknown",
       police: c.police?.name || "Unknown",
       detective: c.detective?.name || "No detective assigned",
     }));
