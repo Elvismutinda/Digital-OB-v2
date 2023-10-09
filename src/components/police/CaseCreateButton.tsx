@@ -240,25 +240,7 @@ const CaseDetailsPage = ({ formData, dispatch, submitForm }) => {
   return (
     <Form layout="vertical">
       <Form.Item
-        label="OB Number"
-        name="ob_number"
-        rules={[{ required: true, message: "OB Number is required!" }]}
-      >
-        <Input
-          size="large"
-          name="ob_number"
-          autoComplete="off"
-          value={formData.caseData.ob_number}
-          onChange={(e) =>
-            dispatch({
-              type: "updateCaseData",
-              payload: { ob_number: e.target.value },
-            })
-          }
-        />
-      </Form.Item>
-      <Form.Item
-        label="Crime"
+        label="Crime Type"
         name="crime"
         rules={[{ required: true, message: "Please select crime!" }]}
       >
@@ -298,6 +280,24 @@ const CaseDetailsPage = ({ formData, dispatch, submitForm }) => {
           }
           autoSize
           allowClear
+        />
+      </Form.Item>
+      <Form.Item
+        label="OB Number"
+        name="ob_number"
+        rules={[{ required: true, message: "OB Number is required!" }]}
+      >
+        <Input
+          size="large"
+          name="ob_number"
+          autoComplete="off"
+          value={formData.caseData.ob_number}
+          onChange={(e) =>
+            dispatch({
+              type: "updateCaseData",
+              payload: { ob_number: e.target.value },
+            })
+          }
         />
       </Form.Item>
       <Button
